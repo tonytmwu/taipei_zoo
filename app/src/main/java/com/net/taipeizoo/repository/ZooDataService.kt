@@ -7,9 +7,13 @@ class ZooDataService {
 
     private val apiClient = RetrofitClient.client
 
-    suspend fun fetchZooArea(rid: String = OpenDataApiService.zoomAreaRId) = execute { apiClient.fetchZooArea(rid) }
+    suspend fun fetchZooAreas(rid: String = OpenDataApiService.zoomAreaRId) = execute {
+        apiClient.fetchZooArea(rid)?.result?.results
+    }
 
-    suspend fun fetchZooPlant(rid: String = OpenDataApiService.zoomＰlantRId) = execute { apiClient.fetchZooPlant(rid) }
+    suspend fun fetchZooPlant(rid: String = OpenDataApiService.zoomＰlantRId) = execute {
+        apiClient.fetchZooPlant(rid)?.result?.results
+    }
 
     private suspend fun <T> execute(action: suspend () -> T?): T? {
         return try {

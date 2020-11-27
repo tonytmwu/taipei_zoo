@@ -1,12 +1,11 @@
 package com.net.taipeizoo.fragment
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.net.taipeizoo.R
+import androidx.fragment.app.viewModels
 import com.net.taipeizoo.databinding.ZooAreaFragmentBinding
 
 class ZooAreaFragment : Fragment() {
@@ -14,11 +13,7 @@ class ZooAreaFragment : Fragment() {
     private var _vb: ZooAreaFragmentBinding? = null
     private val vb get() = _vb!!
 
-    companion object {
-        fun newInstance() = ZooAreaFragment()
-    }
-
-    private lateinit var viewModel: ZooAreaViewModel
+    private val vm: ZooAreaViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,8 +30,18 @@ class ZooAreaFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ZooAreaViewModel::class.java)
-        // TODO: Use the ViewModel
+        bindLiveData()
+        vm.fetchZoomAreas()
+    }
+
+    private fun bindLiveData() {
+        vm.zooAreas.observe(viewLifecycleOwner) { zooAreas ->
+            println("zooAreas = ${zooAreas.size}")
+        }
+    }
+
+    companion object {
+        fun newInstance() = ZooAreaFragment()
     }
 
 }
