@@ -47,7 +47,7 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _vb = FragmentZooAreaDetailBinding.inflate(inflater, container, false)
         return vb.root
     }
@@ -79,6 +79,7 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
          * google issue tracker - https://issuetracker.google.com/issues/37055789#c8
          */
         setZooAreaDetailInfo(zooArea)
+        setToolbarListener()
     }
 
     private fun processNavArgs() {
@@ -111,6 +112,10 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
     }
 
     private fun setListener() {
+        setToolbarListener()
+    }
+
+    private fun setToolbarListener() {
         vb.toolbar.setNavigationOnClickListener {
             listener?.backToZooArea()
         }
