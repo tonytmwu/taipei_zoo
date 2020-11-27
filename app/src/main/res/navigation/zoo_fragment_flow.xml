@@ -3,13 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/zoo_fragment_flow"
-    app:startDestination="@id/zooAreaFragment">
+    app:startDestination="@id/zoo_area_fragment">
 
     <fragment
-        android:id="@+id/zooAreaFragment"
+        android:id="@+id/zoo_area_fragment"
         android:name="com.net.taipeizoo.fragment.ZooAreaFragment"
         android:label="Zoo Area"
         tools:layout="@layout/fragment_zoo_area">
+        <action
+            android:id="@+id/nav_to_zoo_area_detail_fragment"
+            app:destination="@id/zoo_area_detail_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/zoo_area_detail_fragment"
+        android:name="com.net.taipeizoo.fragment.ZooAreaDetailFragment"
+        android:label="Zoo Area Detail"
+        tools:layout="@layout/fragment_zoo_area_detail">
     </fragment>
 
 </navigation>
