@@ -97,10 +97,10 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
     }
 
     private fun setupRecyclerView() {
-        vb.rvZooAreaDetail.layoutManager =
+        vb.rvZooPlant.layoutManager =
                 LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-        vb.rvZooAreaDetail.addItemDecoration(DividerItemDecoration(20,0, 20, 10))
-        vb.rvZooAreaDetail.adapter = adapter
+        vb.rvZooPlant.addItemDecoration(DividerItemDecoration(20,0, 20, 10))
+        vb.rvZooPlant.adapter = adapter
     }
 
     private fun bindLiveData() {
