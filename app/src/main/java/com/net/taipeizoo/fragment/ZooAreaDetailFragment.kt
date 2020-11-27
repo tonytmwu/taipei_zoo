@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
 class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
 
     interface ZooAreaDetailFragmentListener {
-        fun goBack()
+        fun backToZooArea()
         fun showZooPlantDetail(data: ZooPlant)
     }
 
@@ -72,15 +72,28 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
         _vb = null
     }
 
+    override fun onResume() {
+        super.onResume()
+        /**
+         * 因為pop backStack或是旋轉螢幕，CoordinatorLayout不會記得之前的狀態，所以在onResume在塞一次資料到畫面上
+         * google issue tracker - https://issuetracker.google.com/issues/37055789#c8
+         */
+        setZooAreaDetailInfo(zooArea)
+    }
+
     private fun processNavArgs() {
         gson.fromJson(navArgs.zooArea, ZooArea::class.java)?.apply {
             zooArea = this
-            vb.ivImg.load(imgUrl)
-            vb.toolbar.title = name
-            vb.tvInfo.text = info
-            vb.tvCategory.text = category
+            setZooAreaDetailInfo(zooArea)
             name?.let { vm.fetchZooPlants(name)}
         }
+    }
+
+    private fun setZooAreaDetailInfo(zooArea: ZooArea?) {
+        vb.ivImg.load(zooArea?.imgUrl)
+        vb.toolbar.title = zooArea?.name
+        vb.tvInfo.text = zooArea?.info
+        vb.tvCategory.text = zooArea?.category
     }
 
     private fun setupRecyclerView() {
@@ -99,7 +112,7 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
 
     private fun setListener() {
         vb.toolbar.setNavigationOnClickListener {
-            listener?.goBack()
+            listener?.backToZooArea()
         }
     }
 

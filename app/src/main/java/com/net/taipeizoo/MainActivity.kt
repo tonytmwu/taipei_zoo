@@ -9,16 +9,14 @@ import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import com.google.gson.Gson
 import com.net.taipeizoo.databinding.ActivityMainBinding
-import com.net.taipeizoo.fragment.ZooAreaDetailFragment
-import com.net.taipeizoo.fragment.ZooAreaFragment
-import com.net.taipeizoo.fragment.ZooAreaFragmentDirections
-import com.net.taipeizoo.model.ZooArea
+import com.net.taipeizoo.fragment.*
 import com.net.taipeizoo.model.ZooData
 import com.net.taipeizoo.model.ZooPlant
 
 class MainActivity : AppCompatActivity(),
     ZooAreaFragment.ZooAreaFragmentListener,
-    ZooAreaDetailFragment.ZooAreaDetailFragmentListener {
+    ZooAreaDetailFragment.ZooAreaDetailFragmentListener,
+    ZooPlantDetailFragment.ZooPlantDetailFragmentListener{
 
     private var _vb: ActivityMainBinding? = null
     private val vb get() = _vb!!
@@ -60,9 +58,15 @@ class MainActivity : AppCompatActivity(),
     override fun showZooPlantDetail(data: ZooPlant) {
         val json = gson.toJson(data)
         Log.d(javaClass.simpleName, json)
+        val direction = ZooAreaDetailFragmentDirections.navToZooPlantDetailFragment(json)
+        navController.navigate(direction)
     }
 
-    override fun goBack() {
+    override fun backToZooArea() {
+        popBackStack()
+    }
+
+    override fun backToZooAreaDetail() {
         popBackStack()
     }
 }

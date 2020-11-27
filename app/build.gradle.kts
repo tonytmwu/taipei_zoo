@@ -4,6 +4,7 @@ plugins {
     kotlin("android.extensions")
     kotlin("kapt")
     id("androidx.navigation.safeargs.kotlin")
+    id("kotlin-android")
 }
 
 android {
@@ -56,6 +57,7 @@ dependencies {
 
     // Coil
     implementation("io.coil-kt:coil:0.13.0")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
 
     testImplementation("junit:junit:4.+")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
