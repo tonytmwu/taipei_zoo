@@ -11,7 +11,7 @@ class ZooDataService {
         apiClient.fetchZooArea(rid)?.result?.results
     }
 
-    suspend fun fetchZooPlant(rid: String = OpenDataApiService.zoomＰlantRId) = execute {
+    suspend fun fetchZooPlant(rid: String = OpenDataApiService.zoomPlantRId) = execute {
         apiClient.fetchZooPlant(rid)?.result?.results
     }
 

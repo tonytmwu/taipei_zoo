@@ -24,7 +24,7 @@ class ZooAreaDetailFragment : Fragment() {
 
     private var _vb: FragmentZooAreaDetailBinding? = null
     private val vb get() = _vb!!
-    private val vm = viewModels<ZooAreaDetailViewModel>()
+    private val vm: ZooAreaDetailViewModel by viewModels()
     private val navArgs: ZooAreaDetailFragmentArgs by navArgs()
     private val gson by lazy { Gson() }
     private var zooArea: ZooArea? = null
@@ -52,7 +52,8 @@ class ZooAreaDetailFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        // TODO: Use the ViewModel
+        bindLiveData()
+        vm.fetchZooPlants()
     }
 
     override fun onDestroy() {
@@ -67,6 +68,12 @@ class ZooAreaDetailFragment : Fragment() {
             vb.toolbar.title = name
             vb.tvInfo.text = info
             vb.tvCategory.text = category
+        }
+    }
+
+    private fun bindLiveData() {
+        vm.zooPlants.observe(viewLifecycleOwner) { zooPlants ->
+            println("zooPlants = ${zooPlants?.size}")
         }
     }
 

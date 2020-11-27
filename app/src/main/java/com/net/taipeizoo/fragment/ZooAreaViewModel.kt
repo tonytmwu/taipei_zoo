@@ -13,7 +13,6 @@ class ZooAreaViewModel : ViewModel() {
     private val zooDataService by lazy { ZooDataService() }
 
     private val _zooAreas = MutableLiveData<List<ZooArea>>()
-
     val zooAreas: LiveData<List<ZooArea>> = _zooAreas
 
     fun fetchZoomAreas() {
