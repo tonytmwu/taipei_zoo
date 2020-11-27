@@ -10,7 +10,13 @@ import coil.load
 import com.net.taipeizoo.databinding.ViewZooAreaBinding
 import com.net.taipeizoo.model.ZooArea
 
-class ZooAreaAdapter: ListAdapter<ZooArea, ZooAreaAdapter.ViewHolder>(diffCallback) {
+class ZooAreaAdapter(
+        private val listener: ZooAreaViewListener? = null
+): ListAdapter<ZooArea, ZooAreaAdapter.ViewHolder>(diffCallback) {
+
+    interface ZooAreaViewListener {
+        fun onZooAreaViewClick(data: ZooArea)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -32,6 +38,7 @@ class ZooAreaAdapter: ListAdapter<ZooArea, ZooAreaAdapter.ViewHolder>(diffCallba
             vb.tvCategory.text = data.category
             vb.tvInfo.text = data.info
             vb.ivImg.load(data.imgUrl)
+            vb.root.setOnClickListener { listener?.onZooAreaViewClick(data) }
         }
     }
 

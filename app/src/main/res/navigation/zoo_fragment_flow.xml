@@ -20,6 +20,9 @@
         android:name="com.net.taipeizoo.fragment.ZooAreaDetailFragment"
         android:label="Zoo Area Detail"
         tools:layout="@layout/fragment_zoo_area_detail">
+        <argument
+            android:name="zoo_area"
+            app:argType="string"/>
     </fragment>
 
 </navigation>
