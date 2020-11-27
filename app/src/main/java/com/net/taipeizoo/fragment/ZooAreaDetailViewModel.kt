@@ -14,9 +14,9 @@ class ZooAreaDetailViewModel : ViewModel() {
     private val _zooPlants = MutableLiveData<List<ZooPlant>>()
     val zooPlants: LiveData<List<ZooPlant>> = _zooPlants
 
-    fun fetchZooPlants() {
+    fun fetchZooPlants(zooAreaName: String) {
         viewModelScope.launch {
-            _zooPlants.postValue(zooDataService.fetchZooPlant())
+            _zooPlants.postValue(zooDataService.fetchZooPlant(zooAreaName))
         }
     }
 }

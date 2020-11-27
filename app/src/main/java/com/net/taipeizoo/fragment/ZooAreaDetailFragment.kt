@@ -53,7 +53,6 @@ class ZooAreaDetailFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         bindLiveData()
-        vm.fetchZooPlants()
     }
 
     override fun onDestroy() {
@@ -68,6 +67,7 @@ class ZooAreaDetailFragment : Fragment() {
             vb.toolbar.title = name
             vb.tvInfo.text = info
             vb.tvCategory.text = category
+            name?.let { vm.fetchZooPlants(name)}
         }
     }
 
