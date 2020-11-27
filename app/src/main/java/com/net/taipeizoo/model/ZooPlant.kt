@@ -27,4 +27,6 @@ data class ZooPlant(
     val brief: String? = null,
     @SerializedName("F_Name_Ch")
     override val name: String? = null,
+    @SerializedName("F_AlsoKnown")
+    val aliasName: String? = null
 ): ZooData()

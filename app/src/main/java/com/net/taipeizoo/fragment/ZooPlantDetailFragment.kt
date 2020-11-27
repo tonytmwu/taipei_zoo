@@ -8,7 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import com.google.gson.Gson
+import com.net.taipeizoo.adapter.ContentItemAdapter
 import com.net.taipeizoo.databinding.FragmentZooPlantDetailBinding
+import com.net.taipeizoo.model.ZooArea
+import com.net.taipeizoo.model.ZooPlant
+import com.net.taipeizoo.view.DividerItemDecoration
 
 class ZooPlantDetailFragment : Fragment() {
 
@@ -19,10 +28,14 @@ class ZooPlantDetailFragment : Fragment() {
     private var _vb: FragmentZooPlantDetailBinding? = null
     private val vb get() = _vb!!
     private val vm : ZooPlantDetailViewModel by viewModels()
+    private val navArgs: ZooPlantDetailFragmentArgs by navArgs()
+    private val gson by lazy { Gson() }
     private var listener: ZooPlantDetailFragmentListener? = null
+    private val adapter by lazy { ContentItemAdapter() }
 
     init {
         lifecycleScope.launchWhenStarted {
+            processNavArgs()
             setListener()
         }
     }
@@ -40,19 +53,46 @@ class ZooPlantDetailFragment : Fragment() {
         return vb.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupRecyclerView()
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        bindLiveData()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _vb = null
+    }
+
+    private fun setupRecyclerView() {
+        vb.rvZooPlantContent.layoutManager =
+            LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+        vb.rvZooPlantContent.addItemDecoration(DividerItemDecoration(20,0, 20, 0))
+        vb.rvZooPlantContent.adapter = adapter
+    }
+
+    private fun processNavArgs() {
+        gson.fromJson(navArgs.zooPlant, ZooPlant::class.java)?.apply {
+            vb.ivImg.load(imgUrl)
+            vb.toolbar.title = name ?: nameEn
+            vm.toContentItems(requireContext(), this)
+        }
+    }
+
+    private fun bindLiveData() {
+        vm.contentItems.observe(viewLifecycleOwner) { contentItems ->
+            adapter.submitList(contentItems)
+        }
     }
 
     private fun setListener() {
         vb.toolbar.setNavigationOnClickListener {
             listener?.backToZooAreaDetail()
         }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
     }
 
     companion object {

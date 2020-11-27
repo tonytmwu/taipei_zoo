@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Taipei Zoo</string>
+    <string name="alias_name">別名</string>
+    <string name="brief">簡介</string>
+    <string name="feature">辨認方式</string>
+    <string name="function">功能性</string>
 </resources>
