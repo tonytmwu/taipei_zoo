@@ -6,11 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.net.taipeizoo.databinding.ZooAreaFragmentBinding
+import com.net.taipeizoo.databinding.FragmentZooAreaBinding
 
 class ZooAreaFragment : Fragment() {
 
-    private var _vb: ZooAreaFragmentBinding? = null
+    private var _vb: FragmentZooAreaBinding? = null
     private val vb get() = _vb!!
 
     private val vm: ZooAreaViewModel by viewModels()
@@ -19,7 +19,7 @@ class ZooAreaFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _vb = ZooAreaFragmentBinding.inflate(inflater, container, false)
+        _vb = FragmentZooAreaBinding.inflate(inflater, container, false)
         return vb.root
     }
 

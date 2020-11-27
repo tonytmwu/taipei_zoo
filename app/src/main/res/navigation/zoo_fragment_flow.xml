@@ -9,7 +9,7 @@
         android:id="@+id/zooAreaFragment"
         android:name="com.net.taipeizoo.fragment.ZooAreaFragment"
         android:label="Zoo Area"
-        tools:layout="@layout/zoo_area_fragment">
+        tools:layout="@layout/fragment_zoo_area">
     </fragment>
 
 </navigation>
