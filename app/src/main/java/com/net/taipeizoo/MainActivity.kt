@@ -2,6 +2,7 @@ package com.net.taipeizoo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
@@ -13,6 +14,7 @@ import com.net.taipeizoo.fragment.ZooAreaFragment
 import com.net.taipeizoo.fragment.ZooAreaFragmentDirections
 import com.net.taipeizoo.model.ZooArea
 import com.net.taipeizoo.model.ZooData
+import com.net.taipeizoo.model.ZooPlant
 
 class MainActivity : AppCompatActivity(),
     ZooAreaFragment.ZooAreaFragmentListener,
@@ -53,6 +55,11 @@ class MainActivity : AppCompatActivity(),
         val json = gson.toJson(data)
         val direction = ZooAreaFragmentDirections.navToZooAreaDetailFragment(json)
         navController.navigate(direction)
+    }
+
+    override fun showZooPlantDetail(data: ZooPlant) {
+        val json = gson.toJson(data)
+        Log.d(javaClass.simpleName, json)
     }
 
     override fun goBack() {

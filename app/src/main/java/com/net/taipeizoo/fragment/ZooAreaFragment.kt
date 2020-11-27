@@ -9,12 +9,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.net.taipeizoo.adapter.ZooAreaAdapter
+import com.net.taipeizoo.adapter.ZooDataAdapter
 import com.net.taipeizoo.databinding.FragmentZooAreaBinding
 import com.net.taipeizoo.model.ZooData
 import com.net.taipeizoo.view.DividerItemDecoration
 
-class ZooAreaFragment : Fragment(), ZooAreaAdapter.ZooAreaViewListener {
+class ZooAreaFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
 
     interface ZooAreaFragmentListener {
         fun showDetail(data: ZooData)
@@ -24,7 +24,7 @@ class ZooAreaFragment : Fragment(), ZooAreaAdapter.ZooAreaViewListener {
     private val vb get() = _vb!!
 
     private val vm: ZooAreaViewModel by viewModels()
-    private val adapter by lazy { ZooAreaAdapter(this) }
+    private val adapter by lazy { ZooDataAdapter(this) }
     private var listener: ZooAreaFragmentListener? = null
 
     override fun onAttach(context: Context) {
@@ -69,12 +69,12 @@ class ZooAreaFragment : Fragment(), ZooAreaAdapter.ZooAreaViewListener {
         vb.rvZooArea.adapter = adapter
     }
 
-    companion object {
-        fun newInstance() = ZooAreaFragment()
+    override fun onZooDataViewClick(data: ZooData) {
+        listener?.showDetail(data)
     }
 
-    override fun onZooAreaViewClick(data: ZooData) {
-        listener?.showDetail(data)
+    companion object {
+        fun newInstance() = ZooAreaFragment()
     }
 
 }
