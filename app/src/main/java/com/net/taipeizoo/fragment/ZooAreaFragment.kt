@@ -11,13 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.net.taipeizoo.adapter.ZooAreaAdapter
 import com.net.taipeizoo.databinding.FragmentZooAreaBinding
-import com.net.taipeizoo.model.ZooArea
+import com.net.taipeizoo.model.ZooData
 import com.net.taipeizoo.view.DividerItemDecoration
 
 class ZooAreaFragment : Fragment(), ZooAreaAdapter.ZooAreaViewListener {
 
     interface ZooAreaFragmentListener {
-        fun showDetail(data: ZooArea)
+        fun showDetail(data: ZooData)
     }
 
     private var _vb: FragmentZooAreaBinding? = null
@@ -73,7 +73,7 @@ class ZooAreaFragment : Fragment(), ZooAreaAdapter.ZooAreaViewListener {
         fun newInstance() = ZooAreaFragment()
     }
 
-    override fun onZooAreaViewClick(data: ZooArea) {
+    override fun onZooAreaViewClick(data: ZooData) {
         listener?.showDetail(data)
     }
 

@@ -8,14 +8,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.net.taipeizoo.databinding.ViewItemBinding
-import com.net.taipeizoo.model.ZooArea
+import com.net.taipeizoo.model.ZooData
 
 class ZooAreaAdapter(
         private val listener: ZooAreaViewListener? = null
-): ListAdapter<ZooArea, ZooAreaAdapter.ViewHolder>(diffCallback) {
+): ListAdapter<ZooData, ZooAreaAdapter.ViewHolder>(diffCallback) {
 
     interface ZooAreaViewListener {
-        fun onZooAreaViewClick(data: ZooArea)
+        fun onZooAreaViewClick(data: ZooData)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,11 +29,11 @@ class ZooAreaAdapter(
     }
 
     abstract inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        open fun bind(data: ZooArea) {}
+        open fun bind(data: ZooData) {}
     }
 
     private inner class DataViewHolder(private val vb: ViewItemBinding): ViewHolder(vb.root) {
-        override fun bind(data: ZooArea) {
+        override fun bind(data: ZooData) {
             vb.tvName.text = data.name
             vb.tvCategory.text = data.category
             vb.tvInfo.text = data.info
@@ -43,12 +43,12 @@ class ZooAreaAdapter(
     }
 
     companion object {
-        val diffCallback = object: DiffUtil.ItemCallback<ZooArea>() {
-            override fun areItemsTheSame(oldItem: ZooArea, newItem: ZooArea): Boolean {
+        val diffCallback = object: DiffUtil.ItemCallback<ZooData>() {
+            override fun areItemsTheSame(oldItem: ZooData, newItem: ZooData): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: ZooArea, newItem: ZooArea): Boolean {
+            override fun areContentsTheSame(oldItem: ZooData, newItem: ZooData): Boolean {
                 return oldItem == newItem
             }
         }

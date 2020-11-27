@@ -4,21 +4,21 @@ import com.google.gson.annotations.SerializedName
 
 data class ZooPlant(
     @SerializedName("_id")
-    val id: Int = 0,
+    override val id: Int = 0,
     @SerializedName("F_Name_Latin")
     val nameLatin: String? = null,
     @SerializedName("F_Location")
     val location: String? = null,
     @SerializedName("F_Pic01_URL")
-    val imgUrl: String? = null,
+    override val imgUrl: String? = null,
     @SerializedName("F_Name_En")
     val nameEn: String? = null,
     @SerializedName("F_Family")
-    val family: String? = null,
+    override val category: String? = null,
     @SerializedName("F_Geo")
     val geo: String? = null,
     @SerializedName("F_Feature")
-    val feature: String? = null,
+    override val info: String? = null,
     @SerializedName("F_Function＆Application")
     val function: String? = null,
     @SerializedName("F_Genus")
@@ -26,5 +26,5 @@ data class ZooPlant(
     @SerializedName("F_Brief")
     val brief: String? = null,
     @SerializedName("F_Name_Ch")
-    val nameCh: String? = null,
-)
+    override val name: String? = null,
+): ZooData()

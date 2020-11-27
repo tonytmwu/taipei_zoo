@@ -12,6 +12,7 @@ import com.net.taipeizoo.fragment.ZooAreaDetailFragment
 import com.net.taipeizoo.fragment.ZooAreaFragment
 import com.net.taipeizoo.fragment.ZooAreaFragmentDirections
 import com.net.taipeizoo.model.ZooArea
+import com.net.taipeizoo.model.ZooData
 
 class MainActivity : AppCompatActivity(),
     ZooAreaFragment.ZooAreaFragmentListener,
@@ -48,7 +49,7 @@ class MainActivity : AppCompatActivity(),
         navController.navigateUp()
     }
 
-    override fun showDetail(data: ZooArea) {
+    override fun showDetail(data: ZooData) {
         val json = gson.toJson(data)
         val direction = ZooAreaFragmentDirections.navToZooAreaDetailFragment(json)
         navController.navigate(direction)
