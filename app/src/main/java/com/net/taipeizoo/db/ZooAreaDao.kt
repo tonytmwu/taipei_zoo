@@ -10,7 +10,10 @@ interface ZooAreaDao {
     @Query("select * from ZooArea")
     fun observeZooArea(): LiveData<List<ZooArea>>
 
+    @Query("select * from ZooArea")
+    suspend fun query(): List<ZooArea>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(zooAreas: List<ZooArea>)
+    suspend fun insert(zooAreas: List<ZooArea>)
 
 }

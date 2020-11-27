@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.distinctUntilChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.net.taipeizoo.adapter.ZooDataAdapter
@@ -58,12 +59,8 @@ class ZooAreaFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
     }
 
     private fun bindLiveData() {
-        vm.zooAreas.observe(viewLifecycleOwner) { zooAreas ->
+        vm.zooAreas.distinctUntilChanged().observe(viewLifecycleOwner) { zooAreas ->
             adapter.submitList(zooAreas)
-        }
-
-        vm.zooAreasDB.observe(viewLifecycleOwner) { zooAreas ->
-            Log.d(javaClass.simpleName, zooAreas?.size.toString())
         }
     }
 

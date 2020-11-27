@@ -12,7 +12,9 @@ class ZooDataService {
     val zooAreas = zooAreaDao.observeZooArea()
 
     suspend fun fetchZooAreas(rid: String = OpenDataApiService.zoomAreaRId) = execute {
-        apiClient.fetchZooArea(rid)?.result?.results
+        apiClient.fetchZooArea(rid)?.result?.results?.let { zooAreas ->
+            zooAreaDao.insert(zooAreas)
+        }
     }
 
     suspend fun fetchZooPlant(zooAreaName: String,
