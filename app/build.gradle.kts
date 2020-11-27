@@ -4,7 +4,6 @@ plugins {
     kotlin("android.extensions")
     kotlin("kapt")
     id("androidx.navigation.safeargs.kotlin")
-    id("kotlin-android")
 }
 
 android {
@@ -58,6 +57,11 @@ dependencies {
     // Coil
     implementation("io.coil-kt:coil:0.13.0")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
+
+    // Room
+    implementation("androidx.room:room-runtime:2.2.5")
+    kapt("androidx.room:room-compiler:2.2.5")
+    implementation("androidx.room:room-ktx:2.2.5")
 
     testImplementation("junit:junit:4.+")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")

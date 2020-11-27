@@ -14,6 +14,7 @@ class ZooAreaViewModel : ViewModel() {
 
     private val _zooAreas = MutableLiveData<List<ZooArea>>()
     val zooAreas: LiveData<List<ZooArea>> = _zooAreas
+    val zooAreasDB = zooDataService.zooAreas
 
     fun fetchZoomAreas() {
         viewModelScope.launch {

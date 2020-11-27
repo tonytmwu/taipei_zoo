@@ -57,7 +57,6 @@ class MainActivity : AppCompatActivity(),
 
     override fun showZooPlantDetail(data: ZooPlant) {
         val json = gson.toJson(data)
-        Log.d(javaClass.simpleName, json)
         val direction = ZooAreaDetailFragmentDirections.navToZooPlantDetailFragment(json)
         navController.navigate(direction)
     }

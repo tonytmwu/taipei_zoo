@@ -2,10 +2,14 @@ package com.net.taipeizoo.repository
 
 import com.net.taipeizoo.api.OpenDataApiService
 import com.net.taipeizoo.api.RetrofitClient
+import com.net.taipeizoo.db.ZooDataBase
 
 class ZooDataService {
 
     private val apiClient = RetrofitClient.client
+    private val zooAreaDao = ZooDataBase.get().zooAreaDao()
+
+    val zooAreas = zooAreaDao.observeZooArea()
 
     suspend fun fetchZooAreas(rid: String = OpenDataApiService.zoomAreaRId) = execute {
         apiClient.fetchZooArea(rid)?.result?.results

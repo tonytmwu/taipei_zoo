@@ -15,7 +15,6 @@ import coil.load
 import com.google.gson.Gson
 import com.net.taipeizoo.adapter.ContentItemAdapter
 import com.net.taipeizoo.databinding.FragmentZooPlantDetailBinding
-import com.net.taipeizoo.model.ZooArea
 import com.net.taipeizoo.model.ZooPlant
 import com.net.taipeizoo.view.DividerItemDecoration
 
@@ -78,7 +77,7 @@ class ZooPlantDetailFragment : Fragment() {
     private fun processNavArgs() {
         gson.fromJson(navArgs.zooPlant, ZooPlant::class.java)?.apply {
             vb.ivImg.load(imgUrl)
-            vb.toolbar.title = name ?: nameEn
+            vb.toolbar.title = title ?: nameEn
             vm.toContentItems(requireContext(), this)
         }
     }

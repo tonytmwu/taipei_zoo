@@ -24,7 +24,7 @@ class ZooAreaDetailViewModel : ViewModel() {
 
     suspend fun getZooPlant(id: Int): ZooPlant? {
         return withContext(Dispatchers.Default) {
-            _zooPlants.value?.firstOrNull { it.id == id }
+            _zooPlants.value?.firstOrNull { it.rid == id }
         }
     }
 }

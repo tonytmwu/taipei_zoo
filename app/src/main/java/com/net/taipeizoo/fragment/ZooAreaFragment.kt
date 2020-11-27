@@ -2,6 +2,7 @@ package com.net.taipeizoo.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -59,6 +60,10 @@ class ZooAreaFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
     private fun bindLiveData() {
         vm.zooAreas.observe(viewLifecycleOwner) { zooAreas ->
             adapter.submitList(zooAreas)
+        }
+
+        vm.zooAreasDB.observe(viewLifecycleOwner) { zooAreas ->
+            Log.d(javaClass.simpleName, zooAreas?.size.toString())
         }
     }
 

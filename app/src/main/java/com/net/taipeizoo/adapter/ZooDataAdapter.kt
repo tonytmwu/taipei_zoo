@@ -34,7 +34,7 @@ class ZooDataAdapter(
 
     private inner class DataViewHolder(private val vb: ViewItemBinding): ViewHolder(vb.root) {
         override fun bind(data: ZooData) {
-            vb.tvName.text = data.name
+            vb.tvName.text = data.title
             vb.tvCategory.text = data.category
             vb.tvInfo.text = data.info
             vb.ivImg.load(data.imgUrl)
@@ -45,7 +45,7 @@ class ZooDataAdapter(
     companion object {
         val diffCallback = object: DiffUtil.ItemCallback<ZooData>() {
             override fun areItemsTheSame(oldItem: ZooData, newItem: ZooData): Boolean {
-                return oldItem.id == newItem.id
+                return oldItem.rid == newItem.rid
             }
 
             override fun areContentsTheSame(oldItem: ZooData, newItem: ZooData): Boolean {

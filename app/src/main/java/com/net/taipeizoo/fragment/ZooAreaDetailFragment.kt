@@ -86,13 +86,13 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
         gson.fromJson(navArgs.zooArea, ZooArea::class.java)?.apply {
             zooArea = this
             setZooAreaDetailInfo(zooArea)
-            name?.let { vm.fetchZooPlants(name)}
+            title?.let { vm.fetchZooPlants(it)}
         }
     }
 
     private fun setZooAreaDetailInfo(zooArea: ZooArea?) {
         vb.ivImg.load(zooArea?.imgUrl)
-        vb.toolbar.title = zooArea?.name
+        vb.toolbar.title = zooArea?.title
         vb.tvInfo.text = zooArea?.info
         vb.tvCategory.text = zooArea?.category
     }
@@ -123,7 +123,7 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
 
     override fun onZooDataViewClick(data: ZooData) {
         lifecycleScope.launch {
-            vm.getZooPlant(data.id)?.let { selectedZooPlant ->
+            vm.getZooPlant(data.rid)?.let { selectedZooPlant ->
                 listener?.showZooPlantDetail(selectedZooPlant)
             }
         }
