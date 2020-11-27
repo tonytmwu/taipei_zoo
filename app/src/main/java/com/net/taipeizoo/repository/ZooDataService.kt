@@ -11,8 +11,11 @@ class ZooDataService {
         apiClient.fetchZooArea(rid)?.result?.results
     }
 
-    suspend fun fetchZooPlant(rid: String = OpenDataApiService.zoomPlantRId) = execute {
-        apiClient.fetchZooPlant(rid)?.result?.results
+    suspend fun fetchZooPlant(zooAreaName: String,
+                              rid: String = OpenDataApiService.zoomPlantRId) = execute {
+        apiClient.fetchZooPlant(rid)?.result?.results?.filter {
+            it.location?.isNotEmpty() == true && it.location.contains(zooAreaName)
+        }
     }
 
     private suspend fun <T> execute(action: suspend () -> T?): T? {
