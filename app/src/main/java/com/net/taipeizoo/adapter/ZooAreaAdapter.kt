@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.net.taipeizoo.databinding.ViewZooAreaBinding
+import com.net.taipeizoo.databinding.ViewItemBinding
 import com.net.taipeizoo.model.ZooArea
 
 class ZooAreaAdapter(
@@ -20,7 +20,7 @@ class ZooAreaAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val vb = ViewZooAreaBinding.inflate(inflater, parent, false)
+        val vb = ViewItemBinding.inflate(inflater, parent, false)
         return DataViewHolder(vb)
     }
 
@@ -32,7 +32,7 @@ class ZooAreaAdapter(
         open fun bind(data: ZooArea) {}
     }
 
-    private inner class DataViewHolder(private val vb: ViewZooAreaBinding): ViewHolder(vb.root) {
+    private inner class DataViewHolder(private val vb: ViewItemBinding): ViewHolder(vb.root) {
         override fun bind(data: ZooArea) {
             vb.tvName.text = data.name
             vb.tvCategory.text = data.category
