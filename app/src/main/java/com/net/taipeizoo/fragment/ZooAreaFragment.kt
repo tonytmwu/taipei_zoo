@@ -53,7 +53,7 @@ class ZooAreaFragment : Fragment() {
     private fun setupRecyclerView() {
         vb.rvZooArea.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-        vb.rvZooArea.addItemDecoration(DividerItemDecoration(0,0, 0, 5))
+        vb.rvZooArea.addItemDecoration(DividerItemDecoration(20,0, 20, 10))
         vb.rvZooArea.adapter = adapter
     }
 

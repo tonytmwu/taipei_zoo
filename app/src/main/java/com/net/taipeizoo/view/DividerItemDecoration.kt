@@ -16,11 +16,12 @@ class DividerItemDecoration(private val left: Int,
         state: RecyclerView.State
     ) {
         super.getItemOffsets(outRect, view, parent, state)
-        if (parent.getChildAdapterPosition(view) != 0){
-            outRect.top = top
-            outRect.left = left
-            outRect.right = right
-            outRect.bottom = bottom
+        when(parent.getChildAdapterPosition(view) == 0) {
+            true -> outRect.top = bottom
+            false -> outRect.top = top
         }
+        outRect.left = left
+        outRect.right = right
+        outRect.bottom = bottom
     }
 }

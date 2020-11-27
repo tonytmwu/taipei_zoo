@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="150dp"
-    android:background="@color/zoo_area_view_background_color">
+    android:background="@drawable/round_corner_background">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glTop"
