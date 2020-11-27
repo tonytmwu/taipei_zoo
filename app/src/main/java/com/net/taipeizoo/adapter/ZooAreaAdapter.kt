@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.net.taipeizoo.databinding.ViewZooAreaBinding
 import com.net.taipeizoo.model.ZooArea
 
@@ -30,6 +31,7 @@ class ZooAreaAdapter: ListAdapter<ZooArea, ZooAreaAdapter.ViewHolder>(diffCallba
             vb.tvName.text = data.name
             vb.tvCategory.text = data.category
             vb.tvInfo.text = data.info
+            vb.ivImg.load(data.imgUrl)
         }
     }
 
