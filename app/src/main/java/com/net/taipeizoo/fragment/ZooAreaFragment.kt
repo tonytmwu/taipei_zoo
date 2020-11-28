@@ -58,7 +58,7 @@ class ZooAreaFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
     }
 
     private fun bindLiveData() {
-        vm.zooAreas.distinctUntilChanged().observe(viewLifecycleOwner) { zooAreas ->
+        vm.zooAreas.observe(viewLifecycleOwner) { zooAreas ->
             adapter.submitList(zooAreas)
             vb.shimmerLoading.hideShimmer()
         }
