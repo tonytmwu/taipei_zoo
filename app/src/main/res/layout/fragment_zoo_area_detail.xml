@@ -6,6 +6,7 @@
     android:id="@+id/clRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_color"
     tools:context=".fragment.ZooAreaDetailFragment">
 
     <com.google.android.material.appbar.AppBarLayout
