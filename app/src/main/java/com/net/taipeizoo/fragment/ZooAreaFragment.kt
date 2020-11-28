@@ -55,7 +55,6 @@ class ZooAreaFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         bindLiveData()
-        vm.fetchZoomAreas()
     }
 
     private fun bindLiveData() {

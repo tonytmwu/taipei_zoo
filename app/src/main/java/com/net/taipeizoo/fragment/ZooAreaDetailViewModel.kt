@@ -1,9 +1,6 @@
 package com.net.taipeizoo.fragment
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.net.taipeizoo.model.ZooPlant
 import com.net.taipeizoo.repository.ZooDataService
 import kotlinx.coroutines.Dispatchers
@@ -11,20 +8,21 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class ZooAreaDetailViewModel : ViewModel() {
+
     private val zooDataService by lazy { ZooDataService() }
+    private val _zooAreaName = MutableLiveData<String>()
 
-    private val _zooPlants = MutableLiveData<List<ZooPlant>>()
-    val zooPlants: LiveData<List<ZooPlant>> = _zooPlants
-
-    fun fetchZooPlants(zooAreaName: String) {
-        viewModelScope.launch {
-            _zooPlants.postValue(zooDataService.fetchZooPlant(zooAreaName))
-        }
+    val zooPlants = _zooAreaName.switchMap { zooAreaName ->
+        zooDataService.observeZooPlants(zooAreaName)
     }
 
-    suspend fun getZooPlant(id: Int): ZooPlant? {
+    fun startObserveZooPlants(zooAreaName: String) {
+        _zooAreaName.postValue(zooAreaName)
+    }
+
+    suspend fun getZooPlant(id: Int, zooPlants: List<ZooPlant>?): ZooPlant? {
         return withContext(Dispatchers.Default) {
-            _zooPlants.value?.firstOrNull { it.rid == id }
+            zooPlants?.firstOrNull { it.rid == id }
         }
     }
 }

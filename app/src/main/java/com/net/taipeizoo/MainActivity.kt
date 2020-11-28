@@ -3,6 +3,7 @@ package com.net.taipeizoo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
@@ -12,6 +13,7 @@ import com.net.taipeizoo.databinding.ActivityMainBinding
 import com.net.taipeizoo.fragment.*
 import com.net.taipeizoo.model.ZooData
 import com.net.taipeizoo.model.ZooPlant
+import com.net.taipeizoo.viewmodel.MainActivityViewModel
 
 class MainActivity : AppCompatActivity(),
     ZooAreaFragment.ZooAreaFragmentListener,
@@ -20,6 +22,7 @@ class MainActivity : AppCompatActivity(),
 
     private var _vb: ActivityMainBinding? = null
     private val vb get() = _vb!!
+    private val vm: MainActivityViewModel by viewModels()
     private val gson by lazy { Gson() }
     private lateinit var navController: NavController
 
@@ -34,6 +37,12 @@ class MainActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         _vb = ActivityMainBinding.inflate(layoutInflater)
         setContentView(vb.root)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        vm.fetchZooArea()
+        vm.fetchZooPlant()
     }
 
     private fun setListener() {

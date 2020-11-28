@@ -86,7 +86,7 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
         gson.fromJson(navArgs.zooArea, ZooArea::class.java)?.apply {
             zooArea = this
             setZooAreaDetailInfo(zooArea)
-            title?.let { vm.fetchZooPlants(it)}
+            title?.let { vm.startObserveZooPlants(it) }
         }
     }
 
@@ -104,15 +104,14 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
         vb.rvZooPlant.adapter = adapter
     }
 
-    private fun bindLiveData() {
-        vm.zooPlants.observe(viewLifecycleOwner) { zooPlants ->
-            println("zooPlants = ${zooPlants?.size}")
-            adapter.submitList(zooPlants)
-        }
-    }
-
     private fun setListener() {
         setToolbarListener()
+    }
+
+    private fun bindLiveData() {
+        vm.zooPlants.observe(viewLifecycleOwner) { zooPlants ->
+            adapter.submitList(zooPlants)
+        }
     }
 
     private fun setToolbarListener() {
@@ -123,7 +122,7 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
 
     override fun onZooDataViewClick(data: ZooData) {
         lifecycleScope.launch {
-            vm.getZooPlant(data.rid)?.let { selectedZooPlant ->
+            vm.getZooPlant(data.rid, vm.zooPlants.value)?.let { selectedZooPlant ->
                 listener?.showZooPlantDetail(selectedZooPlant)
             }
         }

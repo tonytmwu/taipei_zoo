@@ -11,6 +11,7 @@ import com.net.taipeizoo.model.ZooPlant
 abstract class ZooDataBase: RoomDatabase() {
 
     abstract fun zooAreaDao(): ZooAreaDao
+    abstract fun zooPlantDao(): ZooPlantDao
 
     companion object {
         private var instance: ZooDataBase? = null
