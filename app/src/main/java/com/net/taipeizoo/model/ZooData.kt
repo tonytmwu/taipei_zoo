@@ -7,7 +7,7 @@ open class ZooData {
     @PrimaryKey
     @SerializedName("_id")
     var rid: Int = 0
-    @SerializedName(value = "E_Name", alternate = ["U+FEFFF_Name_Ch"])
+    @SerializedName(value = "E_Name", alternate = ["F_Name_Ch"])
     var title: String? = null
     @SerializedName(value = "E_Category", alternate = ["F_Family"])
     var category: String? = null

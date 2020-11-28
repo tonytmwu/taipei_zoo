@@ -16,6 +16,7 @@ object RetrofitClient {
     var client = Retrofit.Builder()
                 .client(okHttpClient.build())
                 .baseUrl("https://data.taipei/opendata/")
+                .addConverterFactory(TrimBOMBodyConverterFactory())
                 .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
                 .build()
                 .create(OpenDataApiService::class.java)
