@@ -17,6 +17,7 @@ import com.net.taipeizoo.adapter.ContentItemAdapter
 import com.net.taipeizoo.databinding.FragmentZooPlantDetailBinding
 import com.net.taipeizoo.model.ZooPlant
 import com.net.taipeizoo.view.DividerItemDecoration
+import com.net.taipeizoo.viewmodel.ZooPlantDetailFragmentViewModel
 
 class ZooPlantDetailFragment : Fragment() {
 
@@ -26,7 +27,7 @@ class ZooPlantDetailFragment : Fragment() {
 
     private var _vb: FragmentZooPlantDetailBinding? = null
     private val vb get() = _vb!!
-    private val vm : ZooPlantDetailViewModel by viewModels()
+    private val vm : ZooPlantDetailFragmentViewModel by viewModels()
     private val navArgs: ZooPlantDetailFragmentArgs by navArgs()
     private val gson by lazy { Gson() }
     private var listener: ZooPlantDetailFragmentListener? = null

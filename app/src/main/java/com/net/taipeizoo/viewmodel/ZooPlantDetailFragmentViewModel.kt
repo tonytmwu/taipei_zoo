@@ -1,4 +1,4 @@
-package com.net.taipeizoo.fragment
+package com.net.taipeizoo.viewmodel
 
 import android.content.Context
 import androidx.lifecycle.LiveData
@@ -12,7 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class ZooPlantDetailViewModel : ViewModel() {
+class ZooPlantDetailFragmentViewModel : ViewModel() {
 
     private val _contentItems = MutableLiveData<List<ContentItem>>()
     val contentItems: LiveData<List<ContentItem>> = _contentItems
