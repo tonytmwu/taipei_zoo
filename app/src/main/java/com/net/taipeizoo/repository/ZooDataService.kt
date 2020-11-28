@@ -25,8 +25,7 @@ class ZooDataService {
         }
     }
 
-    suspend fun fetchZooPlant(zooAreaName: String,
-                              rid: String = OpenDataApiService.zoomPlantRId) = execute {
+    suspend fun fetchZooPlant(rid: String = OpenDataApiService.zoomPlantRId) = execute {
         apiClient.fetchZooPlant(rid)?.result?.results?.let { zooPlants ->
             zooPlantDao.insert(zooPlants)
             zooPlants

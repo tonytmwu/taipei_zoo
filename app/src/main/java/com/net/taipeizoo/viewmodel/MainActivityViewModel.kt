@@ -17,7 +17,7 @@ class MainActivityViewModel: ViewModel() {
 
     fun fetchZooPlant() {
         viewModelScope.launch {
-            service.fetchZooAreas()
+            service.fetchZooPlant()
         }
     }
 
