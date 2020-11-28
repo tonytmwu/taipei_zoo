@@ -112,7 +112,10 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
 
     private fun bindLiveData() {
         vm.zooPlants.observe(viewLifecycleOwner) { zooPlants ->
-            adapter.submitList(zooPlants)
+            vb.rvZooPlant.postDelayed({
+                adapter.submitList(zooPlants)
+                _vb?.shimmerLoading?.hideShimmer()
+            }, 600)
         }
     }
 

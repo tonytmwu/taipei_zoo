@@ -74,16 +74,24 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvCategory"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/rvZooPlant"/>
+                app:layout_constraintBottom_toTopOf="@+id/shimmerLoading"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvZooPlant"
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerLoading"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_constraintTop_toBottomOf="@id/tvInfo"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvZooPlant"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
