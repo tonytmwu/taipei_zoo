@@ -19,6 +19,7 @@ import com.net.taipeizoo.model.ZooArea
 import com.net.taipeizoo.model.ZooData
 import com.net.taipeizoo.model.ZooPlant
 import com.net.taipeizoo.view.DividerItemDecoration
+import com.net.taipeizoo.viewmodel.ZooAreaDetailFragmentViewModel
 import kotlinx.coroutines.launch
 
 class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
@@ -30,7 +31,7 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
 
     private var _vb: FragmentZooAreaDetailBinding? = null
     private val vb get() = _vb!!
-    private val vm: ZooAreaDetailViewModel by viewModels()
+    private val vm: ZooAreaDetailFragmentViewModel by viewModels()
     private val navArgs: ZooAreaDetailFragmentArgs by navArgs()
     private val gson by lazy { Gson() }
     private var zooArea: ZooArea? = null

@@ -1,13 +1,12 @@
-package com.net.taipeizoo.fragment
+package com.net.taipeizoo.viewmodel
 
 import androidx.lifecycle.*
 import com.net.taipeizoo.model.ZooPlant
 import com.net.taipeizoo.repository.ZooDataService
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class ZooAreaDetailViewModel : ViewModel() {
+class ZooAreaDetailFragmentViewModel : ViewModel() {
 
     private val zooDataService by lazy { ZooDataService() }
     private val _zooAreaName = MutableLiveData<String>()
