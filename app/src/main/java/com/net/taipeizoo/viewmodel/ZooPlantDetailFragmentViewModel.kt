@@ -21,7 +21,8 @@ class ZooPlantDetailFragmentViewModel : ViewModel() {
         viewModelScope.launch {
             withContext(Dispatchers.Default) {
                 listOf(
-                    genContentItem(plant.nameEn, plant.nameLatin),
+                    genContentItem(context.getString(R.string.english_name), plant.nameEn),
+                    genContentItem(context.getString(R.string.latin_name), plant.nameLatin),
                     genContentItem(context.getString(R.string.alias_name), plant.aliasName),
                     genContentItem(context.getString(R.string.brief), plant.brief),
                     genContentItem(context.getString(R.string.feature), plant.info),
