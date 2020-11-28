@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity(),
 
     init {
         lifecycleScope.launchWhenStarted {
+            supportActionBar?.title = getString(R.string.toolbar_title)
             navController = findNavController(R.id.fcvFragmentRoot)
             setListener()
         }
