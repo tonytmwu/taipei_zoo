@@ -2,7 +2,6 @@ package com.net.taipeizoo.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +14,7 @@ import com.net.taipeizoo.adapter.ZooDataAdapter
 import com.net.taipeizoo.databinding.FragmentZooAreaBinding
 import com.net.taipeizoo.model.ZooData
 import com.net.taipeizoo.view.DividerItemDecoration
+import com.net.taipeizoo.viewmodel.ZooAreaFragmentViewModel
 
 class ZooAreaFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
 
@@ -25,7 +25,7 @@ class ZooAreaFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
     private var _vb: FragmentZooAreaBinding? = null
     private val vb get() = _vb!!
 
-    private val vm: ZooAreaViewModel by viewModels()
+    private val vm: ZooAreaFragmentViewModel by viewModels()
     private val adapter by lazy { ZooDataAdapter(this) }
     private var listener: ZooAreaFragmentListener? = null
 
