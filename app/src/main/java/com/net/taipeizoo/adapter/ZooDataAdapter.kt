@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.net.taipeizoo.databinding.ViewEmptyItemBinding
 import com.net.taipeizoo.databinding.ViewItemBinding
 import com.net.taipeizoo.model.ZooData
 
@@ -18,10 +19,27 @@ class ZooDataAdapter(
         fun onZooDataViewClick(data: ZooData)
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return with(getItem(position)) {
+            when(this.rid == 0) {
+                true -> EMPTY
+                false -> DATA
+            }
+        }
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val vb = ViewItemBinding.inflate(inflater, parent, false)
-        return DataViewHolder(vb)
+        return when(viewType) {
+            EMPTY -> {
+                val vb = ViewEmptyItemBinding.inflate(inflater, parent, false)
+                EmptyViewHolder(vb)
+            }
+            else -> {
+                val vb = ViewItemBinding.inflate(inflater, parent, false)
+                DataViewHolder(vb)
+            }
+        }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -31,6 +49,8 @@ class ZooDataAdapter(
     abstract inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         open fun bind(data: ZooData) {}
     }
+
+    private inner class EmptyViewHolder(vb: ViewEmptyItemBinding): ViewHolder(vb.root)
 
     private inner class DataViewHolder(private val vb: ViewItemBinding): ViewHolder(vb.root) {
         override fun bind(data: ZooData) {
@@ -43,6 +63,9 @@ class ZooDataAdapter(
     }
 
     companion object {
+        const val EMPTY = 1
+        const val DATA = 2
+
         val diffCallback = object: DiffUtil.ItemCallback<ZooData>() {
             override fun areItemsTheSame(oldItem: ZooData, newItem: ZooData): Boolean {
                 return oldItem.rid == newItem.rid

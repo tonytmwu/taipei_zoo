@@ -37,7 +37,7 @@ class ZooAreaFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _vb = FragmentZooAreaBinding.inflate(inflater, container, false)
         return vb.root
     }
@@ -68,6 +68,7 @@ class ZooAreaFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         vb.rvZooArea.addItemDecoration(DividerItemDecoration(20,0, 20, 10))
         vb.rvZooArea.adapter = adapter
+        adapter.submitList(ZooData.mockData)
     }
 
     override fun onZooDataViewClick(data: ZooData) {

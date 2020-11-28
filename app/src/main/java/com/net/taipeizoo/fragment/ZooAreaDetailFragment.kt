@@ -39,7 +39,7 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
     private var listener: ZooAreaDetailFragmentListener? = null
 
     init {
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launchWhenResumed {
             processNavArgs()
             setListener()
         }
@@ -103,6 +103,7 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
                 LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         vb.rvZooPlant.addItemDecoration(DividerItemDecoration(20,0, 20, 10))
         vb.rvZooPlant.adapter = adapter
+        adapter.submitList(ZooData.mockData)
     }
 
     private fun setListener() {
