@@ -25,6 +25,12 @@ class MainActivity : AppCompatActivity(),
     private val vm: MainActivityViewModel by viewModels()
     private val gson by lazy { Gson() }
     private lateinit var navController: NavController
+    private val onDestinationChangedListener = NavController.OnDestinationChangedListener { _, _, _ ->
+        when(navController.previousBackStackEntry) {
+            null -> supportActionBar?.show()
+            else -> supportActionBar?.hide()
+        }
+    }
 
     init {
         lifecycleScope.launchWhenStarted {
@@ -40,6 +46,12 @@ class MainActivity : AppCompatActivity(),
         setContentView(vb.root)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        removeListener()
+        _vb = null
+    }
+
     override fun onResume() {
         super.onResume()
         vm.fetchZooArea()
@@ -47,12 +59,11 @@ class MainActivity : AppCompatActivity(),
     }
 
     private fun setListener() {
-        navController.addOnDestinationChangedListener { _, _, _ ->
-            when(navController.previousBackStackEntry) {
-                null -> supportActionBar?.show()
-                else -> supportActionBar?.hide()
-            }
-        }
+        navController.addOnDestinationChangedListener(onDestinationChangedListener)
+    }
+
+    private fun removeListener() {
+        navController.removeOnDestinationChangedListener(onDestinationChangedListener)
     }
 
     private fun popBackStack() {
