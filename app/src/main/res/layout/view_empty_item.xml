@@ -64,7 +64,7 @@
         app:layout_constraintBottom_toTopOf="@+id/tvCategory"/>
 
     <View
-        android:id="@+id/tvCategory"
+        android:id="@+id/viewCategory"
         android:layout_width="0dp"
         android:layout_height="00dp"
         android:background="@color/colorEmptyView"
@@ -77,7 +77,7 @@
         app:layout_constraintBottom_toTopOf="@+id/tvInfo"/>
 
     <View
-        android:id="@+id/tvInfo"
+        android:id="@+id/viewInfo"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/colorEmptyView"
