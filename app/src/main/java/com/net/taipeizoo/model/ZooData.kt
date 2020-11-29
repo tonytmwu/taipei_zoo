@@ -1,5 +1,6 @@
 package com.net.taipeizoo.model
 
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
@@ -15,6 +16,8 @@ open class ZooData {
     var info: String? = null
     @SerializedName("E_Pic_URL", alternate = ["F_Pic01_URL"])
     var imgUrl: String? = null
+    @Ignore
+    var contentItem: ContentItem? = null
 
     companion object {
         val mockData get() = run {

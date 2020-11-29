@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.net.taipeizoo.databinding.ViewContentItemBinding
 import com.net.taipeizoo.databinding.ViewEmptyItemBinding
 import com.net.taipeizoo.databinding.ViewItemBinding
 import com.net.taipeizoo.model.ZooData
@@ -21,9 +22,13 @@ class ZooDataAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return with(getItem(position)) {
-            when(this.rid == 0) {
-                true -> EMPTY
-                false -> DATA
+            if(contentItem != null) {
+                CONTENT
+            } else {
+                when(this.rid == 0) {
+                    true -> EMPTY
+                    false -> DATA
+                }
             }
         }
     }
@@ -34,6 +39,10 @@ class ZooDataAdapter(
             EMPTY -> {
                 val vb = ViewEmptyItemBinding.inflate(inflater, parent, false)
                 EmptyViewHolder(vb)
+            }
+            CONTENT -> {
+                val vb = ViewContentItemBinding.inflate(inflater, parent, false)
+                ContentViewHolder(vb)
             }
             else -> {
                 val vb = ViewItemBinding.inflate(inflater, parent, false)
@@ -62,9 +71,17 @@ class ZooDataAdapter(
         }
     }
 
+    private inner class ContentViewHolder(private val vb: ViewContentItemBinding): ViewHolder(vb.root) {
+        override fun bind(data: ZooData) {
+            vb.tvTitle.text = data.contentItem?.title
+            vb.tvContent.text = data.contentItem?.content
+        }
+    }
+
     companion object {
         const val EMPTY = 1
         const val DATA = 2
+        const val CONTENT = 3
 
         val diffCallback = object: DiffUtil.ItemCallback<ZooData>() {
             override fun areItemsTheSame(oldItem: ZooData, newItem: ZooData): Boolean {

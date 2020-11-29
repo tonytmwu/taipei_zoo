@@ -1,6 +1,7 @@
 package com.net.taipeizoo.model
 
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 

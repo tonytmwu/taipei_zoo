@@ -87,15 +87,13 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
         gson.fromJson(navArgs.zooArea, ZooArea::class.java)?.apply {
             zooArea = this
             setZooAreaDetailInfo(zooArea)
-            title?.let { vm.startObserveZooPlants(it) }
+            title?.let { vm.startObserveZooPlants(it, category, info) }
         }
     }
 
     private fun setZooAreaDetailInfo(zooArea: ZooArea?) {
         vb.ivImg.load(zooArea?.imgUrl)
         vb.toolbar.title = zooArea?.title
-        vb.tvInfo.text = zooArea?.info
-        vb.tvCategory.text = zooArea?.category
     }
 
     private fun setupRecyclerView() {
@@ -114,7 +112,6 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
         vm.zooPlants.observe(viewLifecycleOwner) { zooPlants ->
             vb.rvZooPlant.postDelayed({
                 adapter.submitList(zooPlants)
-                _vb?.shimmerLoading?.hideShimmer()
             }, 600)
         }
     }
