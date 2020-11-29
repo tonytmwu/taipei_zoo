@@ -4,7 +4,7 @@
     <item
         android:id="@android:id/background" >
         <shape>
-            <solid android:color="@color/zoo_area_view_background_color" />
+            <solid android:color="@color/colorZooAreaViewBackground" />
             <corners android:radius="5dp" />
         </shape>
     </item>

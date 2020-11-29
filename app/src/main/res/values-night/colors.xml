@@ -2,9 +2,9 @@
 <resources>
     <color name="colorPrimary">@android:color/black</color>
     <color name="colorPrimaryDark">@android:color/black</color>
-    <color name="background_color">@android:color/black</color>
-    <color name="zoo_area_view_background_color">#3C3C3C</color>
-    <color name="toolbar_title_color">@android:color/white</color>
+    <color name="colorBackground">@android:color/black</color>
+    <color name="colorZooAreaViewBackground">#3C3C3C</color>
+    <color name="colorToolbarTitle">@android:color/white</color>
     <color name="colorEmptyView">#6C6C6C</color>
     <color name="colorRipple">#D0D0D0</color>
 </resources>

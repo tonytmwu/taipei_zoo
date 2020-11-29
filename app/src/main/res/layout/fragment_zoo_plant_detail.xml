@@ -31,7 +31,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:titleTextColor="@color/toolbar_title_color"
+                app:titleTextColor="@color/colorToolbarTitle"
                 app:navigationIcon="@drawable/ic_arrow_back"
                 app:layout_collapseMode="pin"/>
 
