@@ -4,9 +4,10 @@ import androidx.lifecycle.LiveData
 import com.net.taipeizoo.api.OpenDataApiService
 import com.net.taipeizoo.api.RetrofitClient
 import com.net.taipeizoo.db.ZooDataBase
+import com.net.taipeizoo.model.ZooArea
 import com.net.taipeizoo.model.ZooPlant
 
-class ZooDataService {
+class ZooDataService: IZooDataService {
 
     private val apiClient = RetrofitClient.client
     private val zooAreaDao = ZooDataBase.get().zooAreaDao()
@@ -14,26 +15,22 @@ class ZooDataService {
 
     val zooAreas = zooAreaDao.observeZooArea()
 
-    fun observeZooPlants(zooAreaName: String): LiveData<List<ZooPlant>> {
+    override fun observeZooPlants(zooAreaName: String): LiveData<List<ZooPlant>> {
         return zooPlantDao.observeZooPlant(zooAreaName)
     }
 
-    suspend fun fetchZooAreas(rid: String = OpenDataApiService.zoomAreaRId) = execute {
-        apiClient.fetchZooArea(rid)?.result?.results?.let { zooAreas ->
+    override suspend fun fetchZooAreas(rid: String): List<ZooArea>? {
+        return execute { apiClient.fetchZooArea(rid)?.result?.results?.let { zooAreas ->
             zooAreaDao.insert(zooAreas)
             zooAreas
-        }
+        }}
     }
 
-    suspend fun fetchZooPlant(rid: String = OpenDataApiService.zoomPlantRId) = execute {
-        apiClient.fetchZooPlant(rid)?.result?.results?.let { zooPlants ->
+    override suspend fun fetchZooPlant(rid: String): List<ZooPlant>? {
+        return execute { apiClient.fetchZooPlant(rid)?.result?.results?.let { zooPlants ->
             zooPlantDao.insert(zooPlants)
             zooPlants
-        }
-    }
-
-    suspend fun getZooPlants(zooAreaName: String): List<ZooPlant> {
-        return zooPlantDao.query(zooAreaName)
+        }}
     }
 
     private suspend fun <T> execute(action: suspend () -> T?): T? {
