@@ -49,6 +49,7 @@ dependencies {
     // retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.retrofit2:adapter-rxjava3:2.9.0")
 
     // Navigation Component
     implementation("androidx.navigation:navigation-fragment-ktx:2.3.1")
@@ -65,6 +66,9 @@ dependencies {
 
     // shimmer
     implementation("com.facebook.shimmer:shimmer:0.5.0")
+
+    // RxKotlin
+    implementation("io.reactivex.rxjava3:rxkotlin:3.0.1")
 
     testImplementation("junit:junit:4.+")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
