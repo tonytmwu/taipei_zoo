@@ -2,10 +2,12 @@ package com.net.taipeizoo.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.transition.TransitionInflater
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
@@ -32,10 +34,10 @@ class ZooPlantDetailFragment : Fragment() {
     private val gson by lazy { Gson() }
     private var listener: ZooPlantDetailFragmentListener? = null
     private val adapter by lazy { ContentItemAdapter() }
+    private var zooPlant: ZooPlant? = null
 
     init {
         lifecycleScope.launchWhenStarted {
-            processNavArgs()
             setListener()
         }
     }
@@ -48,13 +50,16 @@ class ZooPlantDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _vb = FragmentZooPlantDetailBinding.inflate(inflater, container, false)
+        sharedElementEnterTransition = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
         return vb.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        processNavArgs()
+        ViewCompat.setTransitionName(vb.ivImg, zooPlant?.imgUrl ?: "")
         setupRecyclerView()
     }
 
@@ -77,6 +82,7 @@ class ZooPlantDetailFragment : Fragment() {
 
     private fun processNavArgs() {
         gson.fromJson(navArgs.zooPlant, ZooPlant::class.java)?.apply {
+            zooPlant = this
             vb.ivImg.load(imgUrl)
             vb.toolbar.title = title ?: nameEn
             vm.toContentItems(requireContext(), this)

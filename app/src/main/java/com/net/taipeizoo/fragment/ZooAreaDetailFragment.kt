@@ -28,7 +28,7 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
 
     interface ZooAreaDetailFragmentListener {
         fun backToZooArea()
-        fun showZooPlantDetail(data: ZooPlant)
+        fun showZooPlantDetail(data: ZooPlant, sharedElementView: View)
     }
 
     private var _vb: FragmentZooAreaDetailBinding? = null
@@ -105,7 +105,14 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
         vb.rvZooPlant.layoutManager =
                 LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         vb.rvZooPlant.addItemDecoration(DividerItemDecoration(20,0, 20, 10))
-        vb.rvZooPlant.adapter = adapter
+        with(vb.rvZooPlant) {
+            adapter = this@ZooAreaDetailFragment.adapter
+            postponeEnterTransition()
+            viewTreeObserver.addOnPreDrawListener {
+                startPostponedEnterTransition()
+                true
+            }
+        }
         adapter.submitList(ZooData.mockData)
     }
 
@@ -128,7 +135,7 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
     override fun onZooDataViewClick(data: ZooData, sharedElementView: View) {
         lifecycleScope.launch {
             vm.getZooPlant(data.rid, vm.zooPlants.value)?.let { selectedZooPlant ->
-                listener?.showZooPlantDetail(selectedZooPlant)
+                listener?.showZooPlantDetail(selectedZooPlant, sharedElementView)
             }
         }
     }

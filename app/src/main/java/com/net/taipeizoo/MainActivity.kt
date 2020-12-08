@@ -76,15 +76,18 @@ class MainActivity : AppCompatActivity(),
         val json = gson.toJson(data)
         val direction = ZooAreaFragmentDirections.navToZooAreaDetailFragment(json)
         val extra = FragmentNavigatorExtras(
-            sharedElementView to (data.imgUrl ?: "")
+                sharedElementView to (data.imgUrl ?: "")
         )
         navController.navigate(direction, extra)
     }
 
-    override fun showZooPlantDetail(data: ZooPlant) {
+    override fun showZooPlantDetail(data: ZooPlant, sharedElementView: View) {
         val json = gson.toJson(data)
         val direction = ZooAreaDetailFragmentDirections.navToZooPlantDetailFragment(json)
-        navController.navigate(direction)
+        val extra = FragmentNavigatorExtras(
+                sharedElementView to (data.imgUrl ?: "")
+        )
+        navController.navigate(direction, extra)
     }
 
     override fun backToZooArea() {
