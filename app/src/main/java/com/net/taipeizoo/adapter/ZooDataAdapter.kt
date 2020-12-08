@@ -3,6 +3,7 @@ package com.net.taipeizoo.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +18,7 @@ class ZooDataAdapter(
 ): ListAdapter<ZooData, ZooDataAdapter.ViewHolder>(diffCallback) {
 
     interface ZooDataViewListener {
-        fun onZooDataViewClick(data: ZooData)
+        fun onZooDataViewClick(data: ZooData, sharedElementView: View)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -66,8 +67,11 @@ class ZooDataAdapter(
             vb.tvName.text = data.title
             vb.tvCategory.text = data.category
             vb.tvInfo.text = data.info
-            vb.ivImg.load(data.imgUrl)
-            vb.root.setOnClickListener { listener?.onZooDataViewClick(data) }
+            vb.ivImg.apply {
+                ViewCompat.setTransitionName(this, data.imgUrl ?: "")
+                load(data.imgUrl)
+            }
+            vb.root.setOnClickListener { listener?.onZooDataViewClick(data, vb.ivImg) }
         }
     }
 

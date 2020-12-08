@@ -3,11 +3,13 @@ package com.net.taipeizoo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.google.gson.Gson
 import com.net.taipeizoo.databinding.ActivityMainBinding
 import com.net.taipeizoo.fragment.*
@@ -70,10 +72,13 @@ class MainActivity : AppCompatActivity(),
         navController.navigateUp()
     }
 
-    override fun showDetail(data: ZooData) {
+    override fun showDetail(data: ZooData, sharedElementView: View) {
         val json = gson.toJson(data)
         val direction = ZooAreaFragmentDirections.navToZooAreaDetailFragment(json)
-        navController.navigate(direction)
+        val extra = FragmentNavigatorExtras(
+            sharedElementView to (data.imgUrl ?: "")
+        )
+        navController.navigate(direction, extra)
     }
 
     override fun showZooPlantDetail(data: ZooPlant) {

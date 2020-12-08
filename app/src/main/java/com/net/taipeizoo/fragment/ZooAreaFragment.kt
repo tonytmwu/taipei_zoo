@@ -19,7 +19,7 @@ import com.net.taipeizoo.viewmodel.ZooAreaFragmentViewModel
 class ZooAreaFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
 
     interface ZooAreaFragmentListener {
-        fun showDetail(data: ZooData)
+        fun showDetail(data: ZooData, sharedElementView: View)
     }
 
     private var _vb: FragmentZooAreaBinding? = null
@@ -68,12 +68,19 @@ class ZooAreaFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
         vb.rvZooArea.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         vb.rvZooArea.addItemDecoration(DividerItemDecoration(20,0, 20, 10))
-        vb.rvZooArea.adapter = adapter
+        with(vb.rvZooArea) {
+            adapter = this@ZooAreaFragment.adapter
+            postponeEnterTransition()
+            viewTreeObserver.addOnPreDrawListener {
+                startPostponedEnterTransition()
+                true
+            }
+        }
         adapter.submitList(ZooData.mockData)
     }
 
-    override fun onZooDataViewClick(data: ZooData) {
-        listener?.showDetail(data)
+    override fun onZooDataViewClick(data: ZooData, sharedElementView: View) {
+        listener?.showDetail(data, sharedElementView)
     }
 
     companion object {

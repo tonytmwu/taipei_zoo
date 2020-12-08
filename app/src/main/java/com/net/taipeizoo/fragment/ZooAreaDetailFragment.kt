@@ -2,10 +2,12 @@ package com.net.taipeizoo.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.transition.TransitionInflater
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
@@ -40,9 +42,13 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
 
     init {
         lifecycleScope.launchWhenResumed {
-            processNavArgs()
             setListener()
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        listener = context as? ZooAreaDetailFragmentListener
     }
 
     override fun onCreateView(
@@ -50,12 +56,8 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
             savedInstanceState: Bundle?
     ): View {
         _vb = FragmentZooAreaDetailBinding.inflate(inflater, container, false)
+        sharedElementEnterTransition = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
         return vb.root
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        listener = context as? ZooAreaDetailFragmentListener
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -66,6 +68,8 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         bindLiveData()
+        processNavArgs()
+        ViewCompat.setTransitionName(vb.ivImg, zooArea?.imgUrl ?: "")
     }
 
     override fun onDestroy() {
@@ -93,6 +97,7 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
 
     private fun setZooAreaDetailInfo(zooArea: ZooArea?) {
         vb.ivImg.load(zooArea?.imgUrl)
+        vb.ivImg.transitionName = zooArea?.imgUrl ?: ""
         vb.toolbar.title = zooArea?.title
     }
 
@@ -120,7 +125,7 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
         }
     }
 
-    override fun onZooDataViewClick(data: ZooData) {
+    override fun onZooDataViewClick(data: ZooData, sharedElementView: View) {
         lifecycleScope.launch {
             vm.getZooPlant(data.rid, vm.zooPlants.value)?.let { selectedZooPlant ->
                 listener?.showZooPlantDetail(selectedZooPlant)
