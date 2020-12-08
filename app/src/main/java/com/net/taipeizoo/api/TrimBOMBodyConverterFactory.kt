@@ -19,9 +19,9 @@ class TrimBOMBodyConverterFactory: Converter.Factory() {
             Converter<ResponseBody, Any> { body ->
                 val byteOrderMarker = "%EF%BB%BF"
                 val response = body.byteStream().bufferedReader().use { it.readText() }
-                val encoded = URLEncoder.encode(response, "utf-8")
+                val encoded = URLEncoder.encode(response, Charsets.UTF_8.name())
                 val processed = encoded.replace(byteOrderMarker, "")
-                val decoded = URLDecoder.decode(processed, "utf-8")
+                val decoded = URLDecoder.decode(processed, Charsets.UTF_8.name())
                 Gson().fromJson(decoded, ZooPlantResult::class.java)
             }
         } else {
