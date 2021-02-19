@@ -1,5 +1,6 @@
 package com.net.taipeizoo.api
 
+import com.net.taipeizoo.model.ZooAnimalResult
 import com.net.taipeizoo.model.ZooAreaResult
 import com.net.taipeizoo.model.ZooPlantResult
 import retrofit2.http.GET
@@ -21,5 +22,9 @@ interface OpenDataApiService {
     @GET("{rid}")
     suspend fun fetchZooPlant(@Path("rid") rid: String,
                               @Query("scope") scope: String = "resourceAquire"): ZooPlantResult?
+
+    @GET("{rid}")
+    suspend fun fetchZooAnimal(@Path("rid") rid: String,
+                              @Query("scope") scope: String = "resourceAquire"): ZooAnimalResult?
 
 }

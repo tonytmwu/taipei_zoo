@@ -27,6 +27,9 @@ class RepositoryTest {
 
             val resultZooPlant = ZooDataService().fetchZooPlant("蟲蟲探索谷")
             Assert.assertNotNull(resultZooPlant)
+
+            val resultZooAnimal = ZooDataService().fetchZooAnimal()
+            Assert.assertNotNull(resultZooAnimal)
         }
     }
 

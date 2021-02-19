@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.net.taipeizoo.api.OpenDataApiService
 import com.net.taipeizoo.api.RetrofitClient
 import com.net.taipeizoo.db.ZooDataBase
+import com.net.taipeizoo.model.ZooAnimal
 import com.net.taipeizoo.model.ZooArea
 import com.net.taipeizoo.model.ZooPlant
 
@@ -30,6 +31,12 @@ class ZooDataService: IZooDataService {
         return execute { apiClient.fetchZooPlant(rid)?.result?.results?.let { zooPlants ->
             zooPlantDao.insert(zooPlants)
             zooPlants
+        }}
+    }
+
+    override suspend fun fetchZooAnimal(rid: String): List<ZooAnimal>? {
+        return execute { apiClient.fetchZooAnimal(rid)?.result?.results?.let { zooAnimals ->
+            zooAnimals
         }}
     }
 
