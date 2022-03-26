@@ -6,12 +6,11 @@ plugins {
 }
 
 android {
-    compileSdkVersion(Config.compileSdk)
 
     defaultConfig {
         applicationId = "com.net.taipeizoo"
-        minSdkVersion(Config.minSdk)
-        targetSdkVersion(Config.targetSdk)
+        compileSdk = Config.compileSdk
+        minSdk = Config.minSdk
         versionCode = Config.versionCode
         versionName = Config.versionName
 
@@ -26,10 +25,10 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = "11"
 }
 
 dependencies {
@@ -50,17 +49,17 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
     // Navigation Component
-    implementation("androidx.navigation:navigation-fragment-ktx:2.3.2")
-    implementation("androidx.navigation:navigation-ui-ktx:2.3.2")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.4.1")
+    implementation("androidx.navigation:navigation-ui-ktx:2.4.1")
 
     // Coil
     implementation("io.coil-kt:coil:0.13.0")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
 
     // Room
-    implementation("androidx.room:room-runtime:2.2.6")
-    kapt("androidx.room:room-compiler:2.2.6")
-    implementation("androidx.room:room-ktx:2.2.6")
+    implementation("androidx.room:room-runtime:2.4.2")
+    kapt("androidx.room:room-compiler:2.4.2")
+    implementation("androidx.room:room-ktx:2.4.2")
 
     // shimmer
     implementation("com.facebook.shimmer:shimmer:0.5.0")
