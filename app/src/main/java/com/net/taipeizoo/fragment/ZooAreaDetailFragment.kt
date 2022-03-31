@@ -49,6 +49,7 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         listener = context as? ZooAreaDetailFragmentListener
+        processNavArgs()
     }
 
     override fun onCreateView(
@@ -62,14 +63,11 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView()
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        bindLiveData()
-        processNavArgs()
         ViewCompat.setTransitionName(vb.ivImg, zooArea?.imgUrl ?: "")
+        setZooAreaDetailInfo(zooArea)
+        zooArea?.title?.let { vm.startObserveZooPlants(it, zooArea?.category, zooArea?.info) }
+        setupRecyclerView()
+        bindLiveData()
     }
 
     override fun onDestroy() {
@@ -90,8 +88,6 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
     private fun processNavArgs() {
         gson.fromJson(navArgs.zooArea, ZooArea::class.java)?.apply {
             zooArea = this
-            setZooAreaDetailInfo(zooArea)
-            title?.let { vm.startObserveZooPlants(it, category, info) }
         }
     }
 
@@ -99,6 +95,8 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
         vb.ivImg.load(zooArea?.imgUrl)
         vb.ivImg.transitionName = zooArea?.imgUrl ?: ""
         vb.toolbar.title = zooArea?.title
+        vb.tvTitle.text = zooArea?.category
+        vb.tvDescription.text = zooArea?.info
     }
 
     private fun setupRecyclerView() {

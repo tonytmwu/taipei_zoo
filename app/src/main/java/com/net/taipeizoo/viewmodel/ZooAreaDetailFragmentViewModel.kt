@@ -2,7 +2,6 @@ package com.net.taipeizoo.viewmodel
 
 import androidx.lifecycle.*
 import com.net.taipeizoo.model.ContentItem
-import com.net.taipeizoo.model.ZooData
 import com.net.taipeizoo.model.ZooPlant
 import com.net.taipeizoo.repository.ZooDataService
 import kotlinx.coroutines.Dispatchers
@@ -18,12 +17,7 @@ class ZooAreaDetailFragmentViewModel : ViewModel() {
     val zooPlants = _zooAreaName.switchMap { zooAreaName ->
         zooDataService.observeZooPlants(zooAreaName).switchMap { zooPlants ->
             liveData {
-                val list = ArrayList<ZooPlant>()
-                createZooPlantContentItem(zooAreaCategory, zooAreaInfo)?.let {
-                    list.add(it)
-                }
-                list.addAll(zooPlants)
-                emit(list as List<ZooPlant>)
+                emit(zooPlants)
             }
         }
     }
