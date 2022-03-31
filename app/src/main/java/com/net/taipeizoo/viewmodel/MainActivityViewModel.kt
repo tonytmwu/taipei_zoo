@@ -22,4 +22,10 @@ class MainActivityViewModel: ViewModel() {
         }
     }
 
+    fun fetchZooAnimal() {
+        viewModelScope.launch {
+            service.fetchZooAnimal()
+        }
+    }
+
 }

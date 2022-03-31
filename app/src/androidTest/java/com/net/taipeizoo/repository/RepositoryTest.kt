@@ -22,14 +22,14 @@ class RepositoryTest {
     @Test
     fun testZooOpenDataApi() {
         runBlocking {
-            val resultAooArea = ZooDataService().fetchZooAreas()
-            Assert.assertNotNull(resultAooArea)
+//            val resultAooArea = ZooDataService().fetchZooAreas()
+//            Assert.assertNotNull(resultAooArea)
 
             val resultZooPlant = ZooDataService().fetchZooPlant("蟲蟲探索谷")
             Assert.assertNotNull(resultZooPlant)
 
-            val resultZooAnimal = ZooDataService().fetchZooAnimal()
-            Assert.assertNotNull(resultZooAnimal)
+//            val resultZooAnimal = ZooDataService().fetchZooAnimal()
+//            Assert.assertNotNull(resultZooAnimal)
         }
     }
 

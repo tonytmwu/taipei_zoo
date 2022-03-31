@@ -13,6 +13,7 @@ class ZooDataService: IZooDataService {
     private val apiClient = RetrofitClient.client
     private val zooAreaDao = ZooDataBase.get().zooAreaDao()
     private val zooPlantDao = ZooDataBase.get().zooPlantDao()
+    private val zooAnimalDao = ZooDataBase.get().zooAnimalDao()
 
     val zooAreas = zooAreaDao.observeZooArea()
 
@@ -36,6 +37,7 @@ class ZooDataService: IZooDataService {
 
     override suspend fun fetchZooAnimal(rid: String): List<ZooAnimal>? {
         return execute { apiClient.fetchZooAnimal(rid)?.result?.results?.let { zooAnimals ->
+            zooAnimalDao.insert(zooAnimals)
             zooAnimals
         }}
     }

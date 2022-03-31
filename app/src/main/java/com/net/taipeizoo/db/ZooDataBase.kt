@@ -4,14 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.net.taipeizoo.model.ZooAnimal
 import com.net.taipeizoo.model.ZooArea
 import com.net.taipeizoo.model.ZooPlant
 
-@Database(entities = [ZooArea::class, ZooPlant::class], version = 1)
+@Database(entities = [ZooArea::class, ZooAnimal::class, ZooPlant::class], version = 1)
 abstract class ZooDataBase: RoomDatabase() {
 
     abstract fun zooAreaDao(): ZooAreaDao
     abstract fun zooPlantDao(): ZooPlantDao
+    abstract fun zooAnimalDao(): ZooAnimalDao
 
     companion object {
         private var instance: ZooDataBase? = null

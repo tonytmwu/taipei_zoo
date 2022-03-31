@@ -58,6 +58,7 @@ class MainActivity : AppCompatActivity(),
         super.onResume()
         vm.fetchZooArea()
         vm.fetchZooPlant()
+        vm.fetchZooAnimal()
     }
 
     private fun setListener() {
