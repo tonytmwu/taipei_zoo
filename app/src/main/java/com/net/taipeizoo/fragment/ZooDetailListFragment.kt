@@ -97,8 +97,13 @@ class ZooDetailListFragment : Fragment() {
 
     private suspend fun bindFlow(zooArea: ZooArea) {
         zooArea.title?.let { name ->
-            vm.collectZooAreaPlants(name).collect {
-                adapter.submitList(it)
+            when(zooAreaDetailType) {
+                ZooAreaDetailType.ANIMAL -> vm.collectZooAreaAnimals(name).collect {
+                    adapter.submitList(it)
+                }
+                ZooAreaDetailType.PLANT -> vm.collectZooAreaPlants(name).collect {
+                    adapter.submitList(it)
+                }
             }
         }
     }

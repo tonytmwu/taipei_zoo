@@ -21,6 +21,10 @@ class ZooDataService: IZooDataService {
         return zooPlantDao.observeZooPlant(zooAreaName)
     }
 
+    override fun observeZooAnimals(zooAreaName: String): LiveData<List<ZooAnimal>> {
+        return zooAnimalDao.observeZooAnimal(zooAreaName)
+    }
+
     override suspend fun fetchZooAreas(rid: String): List<ZooArea>? {
         return execute { apiClient.fetchZooArea(rid)?.result?.results?.let { zooAreas ->
             zooAreaDao.insert(zooAreas)

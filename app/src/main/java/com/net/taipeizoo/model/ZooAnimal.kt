@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
 data class ZooAnimal(
     @SerializedName("F_Name_Latin")
     val nameLatin: String? = null,
-    @SerializedName("F_Location")
+    @SerializedName("F_Location", alternate = ["A_Location"])
     val location: String? = null,
     @SerializedName("F_Name_En")
     val nameEn: String? = null,

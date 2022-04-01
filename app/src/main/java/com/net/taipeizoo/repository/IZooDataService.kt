@@ -10,6 +10,8 @@ interface IZooDataService {
 
     fun observeZooPlants(zooAreaName: String): LiveData<List<ZooPlant>>
 
+    fun observeZooAnimals(zooAreaName: String): LiveData<List<ZooAnimal>>
+
     suspend fun fetchZooAreas(rid: String = OpenDataApiService.zooAreaRId): List<ZooArea>?
 
     suspend fun fetchZooPlant(rid: String = OpenDataApiService.zooPlantRId): List<ZooPlant>?

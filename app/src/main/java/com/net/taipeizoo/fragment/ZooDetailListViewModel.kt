@@ -1,6 +1,7 @@
 package com.net.taipeizoo.fragment
 
 import androidx.lifecycle.*
+import com.net.taipeizoo.model.ZooAnimal
 import com.net.taipeizoo.model.ZooPlant
 import com.net.taipeizoo.repository.ZooDataService
 import kotlinx.coroutines.flow.Flow
@@ -13,6 +14,10 @@ class ZooDetailListViewModel : ViewModel() {
 
     fun collectZooAreaPlants(zooAreaName: String): Flow<List<ZooPlant>?> {
         return zooDataService.observeZooPlants(zooAreaName).asFlow()
+    }
+
+    fun collectZooAreaAnimals(zooAreaName: String): Flow<List<ZooAnimal>?> {
+        return zooDataService.observeZooAnimals(zooAreaName).asFlow()
     }
 
 }
