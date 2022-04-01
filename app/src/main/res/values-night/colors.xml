@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@android:color/black</color>
-    <color name="colorPrimaryDark">@android:color/black</color>
+    <color name="colorPrimary">#019858</color>
+    <color name="colorPrimaryDark">#019858</color>
     <color name="colorBackground">@android:color/black</color>
     <color name="colorZooAreaViewBackground">#3C3C3C</color>
     <color name="colorToolbarTitle">@android:color/white</color>
