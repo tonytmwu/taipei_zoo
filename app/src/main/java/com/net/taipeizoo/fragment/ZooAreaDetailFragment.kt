@@ -11,16 +11,15 @@ import androidx.core.view.ViewCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
+import com.net.taipeizoo.adapter.ZooAreaViewPagerAdapter
 import com.net.taipeizoo.adapter.ZooDataAdapter
 import com.net.taipeizoo.databinding.FragmentZooAreaDetailBinding
 import com.net.taipeizoo.model.ZooArea
 import com.net.taipeizoo.model.ZooData
 import com.net.taipeizoo.model.ZooPlant
-import com.net.taipeizoo.view.DividerItemDecoration
 import com.net.taipeizoo.viewmodel.ZooAreaDetailFragmentViewModel
 import kotlinx.coroutines.launch
 
@@ -31,13 +30,14 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
         fun showZooPlantDetail(data: ZooPlant, sharedElementView: View)
     }
 
+    private val viewPagerSet = listOf(ZooDetailListFragment.ZooAreaDetailType.ANIMAL, ZooDetailListFragment.ZooAreaDetailType.PLANT)
     private var _vb: FragmentZooAreaDetailBinding? = null
     private val vb get() = _vb!!
     private val vm: ZooAreaDetailFragmentViewModel by viewModels()
     private val navArgs: ZooAreaDetailFragmentArgs by navArgs()
     private val gson by lazy { Gson() }
     private var zooArea: ZooArea? = null
-    private val adapter by lazy { ZooDataAdapter(this) }
+    private var viewPagerAdapter: ZooAreaViewPagerAdapter? = null
     private var listener: ZooAreaDetailFragmentListener? = null
 
     init {
@@ -64,10 +64,8 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         ViewCompat.setTransitionName(vb.ivImg, zooArea?.imgUrl ?: "")
-        setZooAreaDetailInfo(zooArea)
         zooArea?.title?.let { vm.startObserveZooPlants(it, zooArea?.category, zooArea?.info) }
-        setupRecyclerView()
-        bindLiveData()
+        setZooAreaDetailInfo(zooArea)
     }
 
     override fun onDestroy() {
@@ -88,6 +86,9 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
     private fun processNavArgs() {
         gson.fromJson(navArgs.zooArea, ZooArea::class.java)?.apply {
             zooArea = this
+            viewPagerAdapter = ZooAreaViewPagerAdapter(fragment = this@ZooAreaDetailFragment, zooArea = zooArea).apply {
+                dataset = viewPagerSet
+            }
         }
     }
 
@@ -97,31 +98,15 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
         vb.toolbar.title = zooArea?.title
         vb.tvTitle.text = zooArea?.category
         vb.tvDescription.text = zooArea?.info
-    }
-
-    private fun setupRecyclerView() {
-        vb.rvZooPlant.layoutManager =
-                LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-        vb.rvZooPlant.addItemDecoration(DividerItemDecoration(20,0, 20, 10))
-        with(vb.rvZooPlant) {
-            adapter = this@ZooAreaDetailFragment.adapter
-            postponeEnterTransition()
-            viewTreeObserver.addOnPreDrawListener {
-                startPostponedEnterTransition()
-                true
-            }
-        }
-        adapter.submitList(ZooData.mockData)
+        vb.viewPager.adapter = viewPagerAdapter
+        TabLayoutMediator(vb.tab, vb.viewPager) { tab, position ->
+            tab.text = viewPagerSet[position].title
+        }.attach()
+        viewPagerAdapter?.notifyItemRangeChanged(0, viewPagerSet.size)
     }
 
     private fun setListener() {
         setToolbarListener()
-    }
-
-    private fun bindLiveData() {
-        vm.zooPlants.observe(viewLifecycleOwner) { zooPlants ->
-            adapter.submitList(zooPlants)
-        }
     }
 
     private fun setToolbarListener() {

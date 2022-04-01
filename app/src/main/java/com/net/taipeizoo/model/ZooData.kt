@@ -1,10 +1,13 @@
 package com.net.taipeizoo.model
 
+import android.os.Parcelable
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
-open class ZooData {
+@Parcelize
+open class ZooData: Parcelable {
     @PrimaryKey
     @SerializedName("_id")
     var rid: Int = 0

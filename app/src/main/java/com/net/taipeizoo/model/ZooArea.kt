@@ -1,11 +1,13 @@
 package com.net.taipeizoo.model
 
+import android.os.Parcelable
 import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 @Entity
-data class ZooArea(
+@Parcelize
+data class ZooArea (
     @SerializedName("E_no")
     val no: String? = null,
     @SerializedName("E_Memo")
@@ -14,4 +16,4 @@ data class ZooArea(
     val geo: String? = null,
     @SerializedName("E_URL")
     val url: String? = null
-): ZooData()
+): ZooData(), Parcelable
