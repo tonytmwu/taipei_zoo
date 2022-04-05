@@ -21,6 +21,7 @@ import com.net.taipeizoo.databinding.FragmentZooDetailListBinding
 import com.net.taipeizoo.model.ZooArea
 import com.net.taipeizoo.model.ZooData
 import com.net.taipeizoo.view.DividerItemDecoration
+import com.net.taipeizoo.viewmodel.ZooDetailListViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize

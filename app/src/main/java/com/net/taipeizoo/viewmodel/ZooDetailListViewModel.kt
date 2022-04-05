@@ -1,4 +1,4 @@
-package com.net.taipeizoo.fragment
+package com.net.taipeizoo.viewmodel
 
 import androidx.lifecycle.*
 import com.net.taipeizoo.model.ZooAnimal
