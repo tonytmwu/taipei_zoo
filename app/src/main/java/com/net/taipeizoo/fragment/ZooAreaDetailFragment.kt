@@ -15,19 +15,14 @@ import coil.load
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
 import com.net.taipeizoo.adapter.ZooAreaViewPagerAdapter
-import com.net.taipeizoo.adapter.ZooDataAdapter
 import com.net.taipeizoo.databinding.FragmentZooAreaDetailBinding
 import com.net.taipeizoo.model.ZooArea
-import com.net.taipeizoo.model.ZooData
-import com.net.taipeizoo.model.ZooPlant
 import com.net.taipeizoo.viewmodel.ZooAreaDetailFragmentViewModel
-import kotlinx.coroutines.launch
 
-class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
+class ZooAreaDetailFragment : Fragment() {
 
     interface ZooAreaDetailFragmentListener {
         fun backToZooArea()
-        fun showZooPlantDetail(data: ZooPlant, sharedElementView: View)
     }
 
     private val viewPagerSet = listOf(ZooDetailListFragment.ZooAreaDetailType.ANIMAL, ZooDetailListFragment.ZooAreaDetailType.PLANT)
@@ -37,7 +32,6 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
     private val navArgs: ZooAreaDetailFragmentArgs by navArgs()
     private val gson by lazy { Gson() }
     private var zooArea: ZooArea? = null
-//    private var viewPagerAdapter: ZooAreaViewPagerAdapter? = null
     private var listener: ZooAreaDetailFragmentListener? = null
 
     init {
@@ -115,14 +109,6 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
     private fun setToolbarListener() {
         vb.toolbar.setNavigationOnClickListener {
             listener?.backToZooArea()
-        }
-    }
-
-    override fun onZooDataViewClick(data: ZooData, sharedElementView: View) {
-        lifecycleScope.launch {
-            vm.getZooPlant(data.rid, vm.zooPlants.value)?.let { selectedZooPlant ->
-                listener?.showZooPlantDetail(selectedZooPlant, sharedElementView)
-            }
         }
     }
 

@@ -81,15 +81,6 @@ class MainActivity : AppCompatActivity(),
         navController.navigate(direction, extra)
     }
 
-    override fun showZooPlantDetail(data: ZooPlant, sharedElementView: View) {
-        val json = gson.toJson(data)
-        val direction = ZooAreaDetailFragmentDirections.navToIntroductionFragment(json)
-        val extra = FragmentNavigatorExtras(
-                sharedElementView to (data.imgUrl ?: "")
-        )
-        navController.navigate(direction, extra)
-    }
-
     override fun backToZooArea() {
         popBackStack()
     }
