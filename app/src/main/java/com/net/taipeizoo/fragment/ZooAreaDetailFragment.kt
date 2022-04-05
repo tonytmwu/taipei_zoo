@@ -37,7 +37,7 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
     private val navArgs: ZooAreaDetailFragmentArgs by navArgs()
     private val gson by lazy { Gson() }
     private var zooArea: ZooArea? = null
-    private var viewPagerAdapter: ZooAreaViewPagerAdapter? = null
+//    private var viewPagerAdapter: ZooAreaViewPagerAdapter? = null
     private var listener: ZooAreaDetailFragmentListener? = null
 
     init {
@@ -65,7 +65,18 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
         super.onViewCreated(view, savedInstanceState)
         ViewCompat.setTransitionName(vb.ivImg, zooArea?.imgUrl ?: "")
         zooArea?.title?.let { vm.startObserveZooPlants(it, zooArea?.category, zooArea?.info) }
+        initTabAndViewPager()
         setZooAreaDetailInfo(zooArea)
+    }
+
+    private fun initTabAndViewPager() {
+        vb.viewPager.adapter = ZooAreaViewPagerAdapter(fragment = this@ZooAreaDetailFragment, zooArea = zooArea).apply {
+            dataset = viewPagerSet
+        }
+        TabLayoutMediator(vb.tab, vb.viewPager) { tab, position ->
+            tab.text = viewPagerSet[position].title
+        }.attach()
+        vb.viewPager.adapter?.notifyItemRangeChanged(0, viewPagerSet.size)
     }
 
     override fun onDestroy() {
@@ -86,9 +97,6 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
     private fun processNavArgs() {
         gson.fromJson(navArgs.zooArea, ZooArea::class.java)?.apply {
             zooArea = this
-            viewPagerAdapter = ZooAreaViewPagerAdapter(fragment = this@ZooAreaDetailFragment, zooArea = zooArea).apply {
-                dataset = viewPagerSet
-            }
         }
     }
 
@@ -98,11 +106,6 @@ class ZooAreaDetailFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
         vb.toolbar.title = zooArea?.title
         vb.tvTitle.text = zooArea?.category
         vb.tvDescription.text = zooArea?.info
-        vb.viewPager.adapter = viewPagerAdapter
-        TabLayoutMediator(vb.tab, vb.viewPager) { tab, position ->
-            tab.text = viewPagerSet[position].title
-        }.attach()
-        viewPagerAdapter?.notifyItemRangeChanged(0, viewPagerSet.size)
     }
 
     private fun setListener() {

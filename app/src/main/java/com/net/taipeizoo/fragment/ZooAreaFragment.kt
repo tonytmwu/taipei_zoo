@@ -44,16 +44,12 @@ class ZooAreaFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+        bindLiveData()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _vb = null
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        bindLiveData()
     }
 
     private fun bindLiveData() {

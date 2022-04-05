@@ -1,5 +1,6 @@
 package com.net.taipeizoo.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Parcelable
 import androidx.fragment.app.Fragment
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.net.taipeizoo.CoreApplication
 import com.net.taipeizoo.R
 import com.net.taipeizoo.adapter.ZooDataAdapter
+import com.net.taipeizoo.adapter.ZooDataAdapter.ZooDataViewListener
 import com.net.taipeizoo.databinding.FragmentZooDetailListBinding
 import com.net.taipeizoo.model.ZooArea
 import com.net.taipeizoo.model.ZooData
@@ -23,7 +25,11 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 
-class ZooDetailListFragment : Fragment() {
+class ZooDetailListFragment : Fragment(), ZooDataViewListener {
+
+    interface ZooDetailListFragmentListener {
+        fun showIntroduction(data: ZooData, sharedElementView: View)
+    }
 
     @Parcelize
     enum class ZooAreaDetailType(val title: String): Parcelable {
@@ -47,7 +53,14 @@ class ZooDetailListFragment : Fragment() {
     private val vm: ZooDetailListViewModel by viewModels()
     private var zooArea: ZooArea? = null
     private var zooAreaDetailType: ZooAreaDetailType? = null
-    private val adapter by lazy { ZooDataAdapter() }
+    private val adapter by lazy { ZooDataAdapter(this) }
+
+    var listener: ZooDetailListFragmentListener? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        listener = context as? ZooDetailListFragmentListener
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -106,6 +119,10 @@ class ZooDetailListFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onZooDataViewClick(data: ZooData, sharedElementView: View) {
+        listener?.showIntroduction(data, sharedElementView)
     }
 
 }

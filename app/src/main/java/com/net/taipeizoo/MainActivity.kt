@@ -20,7 +20,8 @@ import com.net.taipeizoo.viewmodel.MainActivityViewModel
 class MainActivity : AppCompatActivity(),
     ZooAreaFragment.ZooAreaFragmentListener,
     ZooAreaDetailFragment.ZooAreaDetailFragmentListener,
-    ZooPlantDetailFragment.ZooPlantDetailFragmentListener{
+    ZooDetailListFragment.ZooDetailListFragmentListener,
+    ZooPlantDetailFragment.ZooPlantDetailFragmentListener {
 
     private var _vb: ActivityMainBinding? = null
     private val vb get() = _vb!!
@@ -97,5 +98,14 @@ class MainActivity : AppCompatActivity(),
 
     override fun backToZooAreaDetail() {
         popBackStack()
+    }
+
+    override fun showIntroduction(data: ZooData, sharedElementView: View) {
+        val json = gson.toJson(data)
+        val direction = ZooAreaDetailFragmentDirections.navToZooPlantDetailFragment(json)
+        val extra = FragmentNavigatorExtras(
+            sharedElementView to (data.imgUrl ?: "")
+        )
+        navController.navigate(direction, extra)
     }
 }
