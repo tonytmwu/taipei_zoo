@@ -2,12 +2,10 @@ package com.net.taipeizoo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.google.gson.Gson
@@ -21,7 +19,7 @@ class MainActivity : AppCompatActivity(),
     ZooAreaFragment.ZooAreaFragmentListener,
     ZooAreaDetailFragment.ZooAreaDetailFragmentListener,
     ZooDetailListFragment.ZooDetailListFragmentListener,
-    ZooPlantDetailFragment.ZooPlantDetailFragmentListener {
+    IntroductionFragment.ZooPlantDetailFragmentListener {
 
     private var _vb: ActivityMainBinding? = null
     private val vb get() = _vb!!
@@ -85,7 +83,7 @@ class MainActivity : AppCompatActivity(),
 
     override fun showZooPlantDetail(data: ZooPlant, sharedElementView: View) {
         val json = gson.toJson(data)
-        val direction = ZooAreaDetailFragmentDirections.navToZooPlantDetailFragment(json)
+        val direction = ZooAreaDetailFragmentDirections.navToIntroductionFragment(json)
         val extra = FragmentNavigatorExtras(
                 sharedElementView to (data.imgUrl ?: "")
         )
@@ -102,7 +100,7 @@ class MainActivity : AppCompatActivity(),
 
     override fun showIntroduction(data: ZooData, sharedElementView: View) {
         val json = gson.toJson(data)
-        val direction = ZooAreaDetailFragmentDirections.navToZooPlantDetailFragment(json)
+        val direction = ZooAreaDetailFragmentDirections.navToIntroductionFragment(json)
         val extra = FragmentNavigatorExtras(
             sharedElementView to (data.imgUrl ?: "")
         )

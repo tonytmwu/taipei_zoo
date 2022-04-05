@@ -9,28 +9,28 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.google.gson.Gson
 import com.net.taipeizoo.adapter.ContentItemAdapter
-import com.net.taipeizoo.databinding.FragmentZooPlantDetailBinding
+import com.net.taipeizoo.databinding.FragmentIntroductionBinding
 import com.net.taipeizoo.model.ZooPlant
 import com.net.taipeizoo.view.DividerItemDecoration
-import com.net.taipeizoo.viewmodel.ZooPlantDetailFragmentViewModel
+import com.net.taipeizoo.viewmodel.IntroductionViewModel
 
-class ZooPlantDetailFragment : Fragment() {
+class IntroductionFragment : Fragment() {
 
     interface ZooPlantDetailFragmentListener {
         fun backToZooAreaDetail()
     }
 
-    private var _vb: FragmentZooPlantDetailBinding? = null
+    private var _vb: FragmentIntroductionBinding? = null
     private val vb get() = _vb!!
-    private val vm : ZooPlantDetailFragmentViewModel by viewModels()
-    private val navArgs: ZooPlantDetailFragmentArgs by navArgs()
+    private val vm : IntroductionViewModel by viewModels()
+    private val navArgs: IntroductionFragmentArgs by navArgs()
     private val gson by lazy { Gson() }
     private var listener: ZooPlantDetailFragmentListener? = null
     private val adapter by lazy { ContentItemAdapter() }
@@ -51,7 +51,7 @@ class ZooPlantDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _vb = FragmentZooPlantDetailBinding.inflate(inflater, container, false)
+        _vb = FragmentIntroductionBinding.inflate(inflater, container, false)
         sharedElementEnterTransition = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
         return vb.root
     }
@@ -61,10 +61,6 @@ class ZooPlantDetailFragment : Fragment() {
         processNavArgs()
         ViewCompat.setTransitionName(vb.ivImg, zooPlant?.imgUrl ?: "")
         setupRecyclerView()
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         bindLiveData()
     }
 
@@ -102,7 +98,7 @@ class ZooPlantDetailFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance() = ZooPlantDetailFragment()
+        fun newInstance() = IntroductionFragment()
     }
 
 }

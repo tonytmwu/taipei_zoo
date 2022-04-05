@@ -12,7 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class ZooPlantDetailFragmentViewModel : ViewModel() {
+class IntroductionViewModel : ViewModel() {
 
     private val _contentItems = MutableLiveData<List<ContentItem>>()
     val contentItems: LiveData<List<ContentItem>> = _contentItems
