@@ -17,6 +17,7 @@ import coil.load
 import com.google.gson.Gson
 import com.net.taipeizoo.adapter.ContentItemAdapter
 import com.net.taipeizoo.databinding.FragmentIntroductionBinding
+import com.net.taipeizoo.model.ZooAnimal
 import com.net.taipeizoo.model.ZooPlant
 import com.net.taipeizoo.view.DividerItemDecoration
 import com.net.taipeizoo.viewmodel.IntroductionViewModel
@@ -34,7 +35,7 @@ class IntroductionFragment : Fragment() {
     private val gson by lazy { Gson() }
     private var listener: ZooPlantDetailFragmentListener? = null
     private val adapter by lazy { ContentItemAdapter() }
-    private var zooPlant: ZooPlant? = null
+    private var uiTransitionName: String? = null
 
     init {
         lifecycleScope.launchWhenStarted {
@@ -59,7 +60,7 @@ class IntroductionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         processNavArgs()
-        ViewCompat.setTransitionName(vb.ivImg, zooPlant?.imgUrl ?: "")
+        ViewCompat.setTransitionName(vb.ivImg, uiTransitionName ?: "")
         setupRecyclerView()
         bindLiveData()
     }
@@ -77,12 +78,26 @@ class IntroductionFragment : Fragment() {
     }
 
     private fun processNavArgs() {
-        gson.fromJson(navArgs.zooPlant, ZooPlant::class.java)?.apply {
-            zooPlant = this
-            vb.ivImg.load(imgUrl)
-            vb.toolbar.title = title ?: nameEn
-            vm.toContentItems(requireContext(), this)
+        when(navArgs.zooDataType) {
+            ZooDetailListFragment.ZooAreaDetailType.ANIMAL.name -> {
+                gson.fromJson(navArgs.zooPlant, ZooAnimal::class.java)?.apply {
+                    setZooData(title ?: nameEn, imgUrl)
+                    vm.toContentItems(requireContext(), this)
+                }
+            }
+            else -> {
+                gson.fromJson(navArgs.zooPlant, ZooPlant::class.java)?.apply {
+                    setZooData(title ?: nameEn, imgUrl)
+                    vm.toContentItems(requireContext(), this)
+                }
+            }
         }
+    }
+
+    private fun setZooData(title: String?, imgUrl: String?) {
+        uiTransitionName = imgUrl
+        vb.ivImg.load(imgUrl)
+        vb.toolbar.title = title
     }
 
     private fun bindLiveData() {

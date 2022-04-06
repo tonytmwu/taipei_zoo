@@ -11,14 +11,16 @@ import coil.load
 import com.net.taipeizoo.databinding.ViewContentItemBinding
 import com.net.taipeizoo.databinding.ViewEmptyItemBinding
 import com.net.taipeizoo.databinding.ViewItemBinding
+import com.net.taipeizoo.fragment.ZooDetailListFragment.ZooAreaDetailType
 import com.net.taipeizoo.model.ZooData
 
 class ZooDataAdapter(
-        private val listener: ZooDataViewListener? = null
+        private val listener: ZooDataViewListener? = null,
+        private val zooDataType: ZooAreaDetailType? = null
 ): ListAdapter<ZooData, ZooDataAdapter.ViewHolder>(diffCallback) {
 
     interface ZooDataViewListener {
-        fun onZooDataViewClick(data: ZooData, sharedElementView: View)
+        fun onZooDataViewClick(zooDataType: ZooAreaDetailType?, data: ZooData, sharedElementView: View)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -71,7 +73,7 @@ class ZooDataAdapter(
                 ViewCompat.setTransitionName(this, data.imgUrl ?: "")
                 load(data.imgUrl)
             }
-            vb.root.setOnClickListener { listener?.onZooDataViewClick(data, vb.ivImg) }
+            vb.root.setOnClickListener { listener?.onZooDataViewClick(zooDataType, data, vb.ivImg) }
         }
     }
 

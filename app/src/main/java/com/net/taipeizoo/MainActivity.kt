@@ -12,7 +12,6 @@ import com.google.gson.Gson
 import com.net.taipeizoo.databinding.ActivityMainBinding
 import com.net.taipeizoo.fragment.*
 import com.net.taipeizoo.model.ZooData
-import com.net.taipeizoo.model.ZooPlant
 import com.net.taipeizoo.viewmodel.MainActivityViewModel
 
 class MainActivity : AppCompatActivity(),
@@ -89,9 +88,9 @@ class MainActivity : AppCompatActivity(),
         popBackStack()
     }
 
-    override fun showIntroduction(data: ZooData, sharedElementView: View) {
+    override fun showIntroduction(zooAreaDetailType: ZooDetailListFragment.ZooAreaDetailType?, data: ZooData, sharedElementView: View) {
         val json = gson.toJson(data)
-        val direction = ZooAreaDetailFragmentDirections.navToIntroductionFragment(json)
+        val direction = ZooAreaDetailFragmentDirections.navToIntroductionFragment(zooAreaDetailType?.name ?: "", json)
         val extra = FragmentNavigatorExtras(
             sharedElementView to (data.imgUrl ?: "")
         )

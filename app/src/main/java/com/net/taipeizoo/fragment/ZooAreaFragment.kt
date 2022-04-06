@@ -74,12 +74,15 @@ class ZooAreaFragment : Fragment(), ZooDataAdapter.ZooDataViewListener {
         adapter.submitList(ZooData.mockData)
     }
 
-    override fun onZooDataViewClick(data: ZooData, sharedElementView: View) {
+    override fun onZooDataViewClick(
+        zooDataType: ZooDetailListFragment.ZooAreaDetailType?,
+        data: ZooData,
+        sharedElementView: View
+    ) {
         listener?.showDetail(data, sharedElementView)
     }
 
     companion object {
         fun newInstance() = ZooAreaFragment()
     }
-
 }

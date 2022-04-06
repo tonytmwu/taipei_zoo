@@ -29,7 +29,7 @@ import kotlinx.parcelize.Parcelize
 class ZooDetailListFragment : Fragment(), ZooDataViewListener {
 
     interface ZooDetailListFragmentListener {
-        fun showIntroduction(data: ZooData, sharedElementView: View)
+        fun showIntroduction(zooAreaDetailType: ZooAreaDetailType?, data: ZooData, sharedElementView: View)
     }
 
     @Parcelize
@@ -54,8 +54,7 @@ class ZooDetailListFragment : Fragment(), ZooDataViewListener {
     private val vm: ZooDetailListViewModel by viewModels()
     private var zooArea: ZooArea? = null
     private var zooAreaDetailType: ZooAreaDetailType? = null
-    private val adapter by lazy { ZooDataAdapter(this) }
-
+    private lateinit var adapter: ZooDataAdapter
     var listener: ZooDetailListFragmentListener? = null
 
     override fun onAttach(context: Context) {
@@ -67,7 +66,9 @@ class ZooDetailListFragment : Fragment(), ZooDataViewListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        processArguments()
+        processArguments { zooArea, zooAreaDetailType ->
+            initZooDataAdapter(zooAreaDetailType)
+        }
         _vb = FragmentZooDetailListBinding.inflate(inflater, container, false)
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -79,9 +80,14 @@ class ZooDetailListFragment : Fragment(), ZooDataViewListener {
         return vb.root
     }
 
-    private fun processArguments() {
+    private fun processArguments(callback: (zooArea: ZooArea?, zooAreaDetailType: ZooAreaDetailType?) -> Unit) {
         zooArea = arguments?.getParcelable(ARG_ZOO_AREA)
         zooAreaDetailType = arguments?.getParcelable(ARG_ZOO_AREA_DETAIL_TYPE)
+        callback.invoke(zooArea, zooAreaDetailType)
+    }
+
+    private fun initZooDataAdapter(zooAreaDetailType: ZooAreaDetailType?) {
+        adapter = ZooDataAdapter(this, zooAreaDetailType)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -122,8 +128,12 @@ class ZooDetailListFragment : Fragment(), ZooDataViewListener {
         }
     }
 
-    override fun onZooDataViewClick(data: ZooData, sharedElementView: View) {
-        listener?.showIntroduction(data, sharedElementView)
+    override fun onZooDataViewClick(
+        zooDataType: ZooAreaDetailType?,
+        data: ZooData,
+        sharedElementView: View
+    ) {
+        listener?.showIntroduction(zooDataType, data, sharedElementView)
     }
 
 }

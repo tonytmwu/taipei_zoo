@@ -34,6 +34,9 @@
         android:label="Zoo Area Detail Introduction"
         tools:layout="@layout/fragment_introduction">
         <argument
+            android:name="zoo_data_type"
+            app:argType="string"/>
+        <argument
             android:name="zoo_plant"
             app:argType="string"/>
     </fragment>
