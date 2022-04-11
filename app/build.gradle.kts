@@ -68,6 +68,9 @@ dependencies {
     // shimmer
     implementation("com.facebook.shimmer:shimmer:0.5.0")
 
+    // dynamic feature
+    api ("com.google.android.play:core:1.10.3")
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")

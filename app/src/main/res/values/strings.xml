@@ -10,4 +10,5 @@
     <string name="plant">植物</string>
     <string name="animal">動物</string>
     <string name="title_mapfeature">Map Feature</string>
+    <string name="loading">loading</string>
 </resources>
