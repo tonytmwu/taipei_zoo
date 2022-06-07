@@ -8,12 +8,12 @@ import kotlinx.parcelize.Parcelize
 @Entity
 @Parcelize
 data class ZooArea (
-    @SerializedName("E_no")
+    @SerializedName("e_no")
     val no: String? = null,
-    @SerializedName("E_Memo")
+    @SerializedName("e_memo")
     val memo: String? = null,
-    @SerializedName("E_Geo")
+    @SerializedName("e_geo")
     val geo: String? = null,
-    @SerializedName("E_URL")
+    @SerializedName("e_url")
     val url: String? = null
 ): ZooData(), Parcelable
