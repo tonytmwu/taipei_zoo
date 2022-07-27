@@ -74,9 +74,9 @@ class ZooAreaIntroductionFragment : Fragment() {
             Column(modifier = Modifier
                 .verticalScroll(rememberScrollState())
             ) {
-                title?.let { Text(it, style = TextStyle(color = Color.White), fontSize = 18.sp) }
+                title?.let { Text(it, style = TextStyle(color = Color.White), fontSize = 16.sp) }
                 Spacer(modifier = Modifier.height(10.dp))
-                introduction?.let { Text(it, style = TextStyle(color = Color.White), fontSize = 18.sp) }
+                introduction?.let { Text(it, style = TextStyle(color = Color.White), fontSize = 16.sp) }
             }
         }
     }
