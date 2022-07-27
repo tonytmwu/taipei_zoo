@@ -2,6 +2,7 @@ package com.net.taipeizoo.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.net.taipeizoo.fragment.ZooAreaIntroductionFragment
 import com.net.taipeizoo.fragment.ZooDetailListFragment
 import com.net.taipeizoo.fragment.ZooDetailListFragment.ZooAreaDetailType
 import com.net.taipeizoo.model.ZooArea
@@ -15,6 +16,9 @@ class ZooAreaViewPagerAdapter(fragment: Fragment, private val zooArea: ZooArea?)
     }
 
     override fun createFragment(position: Int): Fragment {
-        return ZooDetailListFragment.newInstance(zooArea, dataset?.get(position))
+        return when(position == 0) {
+            true -> ZooAreaIntroductionFragment.newInstance(zooArea?.category, zooArea?.info)
+            false -> ZooDetailListFragment.newInstance(zooArea, dataset?.get(position))
+        }
     }
 }

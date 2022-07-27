@@ -22,7 +22,6 @@ import com.net.taipeizoo.model.ZooArea
 import com.net.taipeizoo.model.ZooData
 import com.net.taipeizoo.view.DividerItemDecoration
 import com.net.taipeizoo.viewmodel.ZooDetailListViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 
@@ -34,7 +33,9 @@ class ZooDetailListFragment : Fragment(), ZooDataViewListener {
 
     @Parcelize
     enum class ZooAreaDetailType(val title: String): Parcelable {
-        PLANT(CoreApplication.context.getString(R.string.plant)), ANIMAL(CoreApplication.context.getString(R.string.animal))
+        INTRODUCTION(CoreApplication.context.getString(R.string.area_introduction)),
+        ANIMAL(CoreApplication.context.getString(R.string.animal)),
+        PLANT(CoreApplication.context.getString(R.string.plant))
     }
 
     companion object {
@@ -123,6 +124,9 @@ class ZooDetailListFragment : Fragment(), ZooDataViewListener {
                 }
                 ZooAreaDetailType.PLANT -> vm.collectZooAreaPlants(name).collect {
                     adapter.submitList(it)
+                }
+                else -> {
+
                 }
             }
         }

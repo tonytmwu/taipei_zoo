@@ -25,7 +25,11 @@ class ZooAreaDetailFragment : Fragment() {
         fun backToZooArea()
     }
 
-    private val viewPagerSet = listOf(ZooDetailListFragment.ZooAreaDetailType.ANIMAL, ZooDetailListFragment.ZooAreaDetailType.PLANT)
+    private val viewPagerSet = listOf(
+        ZooDetailListFragment.ZooAreaDetailType.INTRODUCTION,
+        ZooDetailListFragment.ZooAreaDetailType.ANIMAL,
+        ZooDetailListFragment.ZooAreaDetailType.PLANT
+    )
     private var _vb: FragmentZooAreaDetailBinding? = null
     private val vb get() = _vb!!
     private val vm: ZooAreaDetailFragmentViewModel by viewModels()

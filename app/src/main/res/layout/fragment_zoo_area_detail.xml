@@ -53,7 +53,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/tvDescription"
-            tools:text="I'm the title"/>
+            tools:text="I'm the title"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/tvDescription"
@@ -64,7 +65,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/tab"
-            tools:text="I'm the description"/>
+            tools:text="I'm the description"
+            android:visibility="gone"/>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab"

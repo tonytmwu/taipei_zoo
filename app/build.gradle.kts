@@ -18,7 +18,15 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-    buildFeatures.viewBinding = true
+
+    buildFeatures {
+        viewBinding = true
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.1.1"
+    }
 
     buildTypes {
         named("release") {
@@ -67,6 +75,13 @@ dependencies {
 
     // shimmer
     implementation("com.facebook.shimmer:shimmer:0.5.0")
+
+    // Jetpack Compose
+    implementation("androidx.compose.ui:ui:1.1.1")
+    implementation("androidx.compose.ui:ui-tooling:1.1.1")
+    implementation("androidx.compose.foundation:foundation:1.1.1")
+    implementation("androidx.compose.material:material:1.1.1")
+    implementation("androidx.activity:activity-compose:1.5.0")
 
     // dynamic feature
     api ("com.google.android.play:core:1.10.3")
