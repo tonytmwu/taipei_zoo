@@ -15,9 +15,15 @@ interface ZooAnimalDao {
     fun observeZooAnimal(zooAreaName: String): LiveData<List<ZooAnimal>>
 
     @Query("select * from ZooAnimal")
-    suspend fun query(): List<ZooAnimal>
+    suspend fun query(): List<ZooAnimal>?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(zooAnimals: List<ZooAnimal>)
+
+    @Query("DELETE FROM ZooAnimal")
+    suspend fun clean()
+
+    @Query("select * from ZooAnimal where location like '%' || :zooAreaName || '%'")
+    suspend fun fetchZooAnimal(zooAreaName: String): List<ZooAnimal>
 
 }

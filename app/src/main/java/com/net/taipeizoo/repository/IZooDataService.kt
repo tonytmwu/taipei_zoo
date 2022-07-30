@@ -18,4 +18,8 @@ interface IZooDataService {
 
     suspend fun fetchZooAnimal(rid: String = OpenDataApiService.zooAnimalId): List<ZooAnimal>?
 
+    suspend fun queryAll(): List<ZooAnimal>?
+
+    suspend fun queryAnimal(areaName: String): List<ZooAnimal>?
+
 }

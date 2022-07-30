@@ -2,6 +2,8 @@ package com.net.taipeizoo.model
 
 import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 @Entity
 data class ZooAnimal(
@@ -23,4 +25,33 @@ data class ZooAnimal(
     val distribution: String? = null,
     @SerializedName("A_Diet")
     val diet: String? = null
-) : ZooData()
+) : ZooData() {
+
+    companion object {
+        suspend fun toAnimals(csv: List<String?>): List<ZooAnimal> {
+            return withContext(Dispatchers.Default) {
+                csv.filterNotNull().mapIndexed { index, it ->
+                    val arr = it.split("*")
+                    ZooAnimal(
+                        nameLatin = arr[8],
+                        location = arr[5],
+                        nameEn = arr[7],
+                        phylum = arr[9],
+                        order = arr[11],
+                        behavior = arr[17],
+                        interpretation = arr[20],
+                        distribution = arr[14],
+                        diet = arr[18]
+                    ).apply {
+                        rid = index + 1
+                        title = arr[0]
+                        category = arr[12]
+                        info = arr[16]
+                        imgUrl = arr[26]
+                    }
+                }
+            }
+        }
+    }
+
+}

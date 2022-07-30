@@ -6,6 +6,7 @@ import com.net.taipeizoo.model.ZooPlant
 import com.net.taipeizoo.repository.ZooDataService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 
 class ZooDetailListViewModel : ViewModel() {
 

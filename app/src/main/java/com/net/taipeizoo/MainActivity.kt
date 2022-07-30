@@ -33,6 +33,12 @@ class MainActivity : AppCompatActivity(),
     }
 
     init {
+        lifecycleScope.launchWhenCreated {
+            vm.fetchZooArea()
+            vm.fetchZooPlant()
+            vm.fetchZooAnimal()
+        }
+
         lifecycleScope.launchWhenStarted {
             supportActionBar?.title = getString(R.string.toolbar_title)
             navController = findNavController(R.id.fcvFragmentRoot)
@@ -50,13 +56,6 @@ class MainActivity : AppCompatActivity(),
         super.onDestroy()
         removeListener()
         _vb = null
-    }
-
-    override fun onResume() {
-        super.onResume()
-        vm.fetchZooArea()
-        vm.fetchZooPlant()
-        vm.fetchZooAnimal()
     }
 
     private fun setListener() {

@@ -9,7 +9,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 open class ZooData: Parcelable {
     @PrimaryKey
-    @SerializedName("_id")
+    @SerializedName(value = "_id", alternate = ["A_CID"])
     var rid: Int = 0
     @SerializedName(value = "e_name", alternate = ["F_Name_Ch", "A_Name_Ch"])
     var title: String? = null

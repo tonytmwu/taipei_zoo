@@ -83,6 +83,9 @@ dependencies {
     implementation("androidx.compose.material:material:1.1.1")
     implementation("androidx.activity:activity-compose:1.5.0")
 
+    // OpenCSV
+    implementation("com.opencsv:opencsv:4.6")
+
     // dynamic feature
     api ("com.google.android.play:core:1.10.3")
 

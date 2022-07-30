@@ -118,16 +118,21 @@ class ZooDetailListFragment : Fragment(), ZooDataViewListener {
 
     private suspend fun bindFlow(zooArea: ZooArea) {
         zooArea.title?.let { name ->
+            var indexName = name
+            indexName.takeIf { it.contains("大貓熊館") }?.let {
+                indexName = "大貓熊館"
+            }
+            indexName.takeIf { it.contains("穿山甲館") }?.let {
+                indexName = "穿山甲館"
+            }
             when(zooAreaDetailType) {
-                ZooAreaDetailType.ANIMAL -> vm.collectZooAreaAnimals(name).collect {
+                ZooAreaDetailType.ANIMAL -> vm.collectZooAreaAnimals(indexName).collect {
                     adapter.submitList(it)
                 }
-                ZooAreaDetailType.PLANT -> vm.collectZooAreaPlants(name).collect {
+                ZooAreaDetailType.PLANT -> vm.collectZooAreaPlants(indexName).collect {
                     adapter.submitList(it)
                 }
-                else -> {
-
-                }
+                else -> {}
             }
         }
     }
