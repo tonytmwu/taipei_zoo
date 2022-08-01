@@ -1,3 +1,11 @@
+import java.io.File
+import java.io.FileInputStream
+import java.util.*
+
+val keyProperty = Properties().apply {
+    load(FileInputStream(File(rootProject.rootDir, "taipei_zoo_key.properties")))
+}
+
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -28,9 +36,24 @@ android {
         kotlinCompilerExtensionVersion = "1.1.1"
     }
 
+    signingConfigs {
+        create("default") {
+            keyAlias = keyProperty.getProperty("keyAlias")
+            keyPassword = keyProperty.getProperty("keyPassword")
+            storeFile = file(keyProperty.getProperty("storeFile"))
+            storePassword = keyProperty.getProperty("storePassword")
+        }
+    }
+
     buildTypes {
+        named("debug") {
+            signingConfig = signingConfigs.getByName("default")
+        }
+
         named("release") {
             isMinifyEnabled = true
+            isDebuggable = false
+            signingConfig = signingConfigs.getByName("default")
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
