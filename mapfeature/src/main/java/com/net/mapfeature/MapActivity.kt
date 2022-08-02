@@ -6,11 +6,11 @@ import android.view.View
 import android.widget.Toast
 import com.google.android.play.core.splitinstall.*
 import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
-import com.net.mapfeature.databinding.ActivityMainBinding
+import com.net.mapfeature.databinding.ActivityMapBinding
 
-class MainActivity : AppCompatActivity() {
+class MapActivity : AppCompatActivity() {
 
-    private lateinit var vb: ActivityMainBinding
+    private lateinit var vb: ActivityMapBinding
     private lateinit var manager: SplitInstallManager
     private val listener = SplitInstallStateUpdatedListener { state ->
         val multiInstall = state.moduleNames().size > 1
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        vb = ActivityMainBinding.inflate(layoutInflater)
+        vb = ActivityMapBinding.inflate(layoutInflater)
         manager = SplitInstallManagerFactory.create(this)
         setContentView(vb.root)
     }
