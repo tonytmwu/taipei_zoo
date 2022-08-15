@@ -63,6 +63,12 @@ android {
     }
     kotlinOptions.jvmTarget = "11"
     dynamicFeatures += setOf(":mapfeature")
+
+    lint {
+        checkDependencies = true
+        ignoreTestSources = true
+        baseline = file("lint-baseline.xml")
+    }
 }
 
 dependencies {
