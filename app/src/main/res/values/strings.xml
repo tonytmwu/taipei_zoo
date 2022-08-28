@@ -7,6 +7,9 @@
     <string name="brief">簡介</string>
     <string name="feature">辨認方式</string>
     <string name="function">功能性</string>
+    <string name="distribution">遍佈</string>
+    <string name="habitat">棲息地</string>
+    <string name="behavior">行為</string>
     <string name="plant">植物</string>
     <string name="animal">動物</string>
     <string name="area_introduction">園區簡介</string>

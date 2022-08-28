@@ -27,7 +27,7 @@ class IntroductionViewModel : ViewModel() {
                     genContentItem(context.getString(R.string.alias_name), plant.aliasName),
                     genContentItem(context.getString(R.string.brief), plant.brief),
                     genContentItem(context.getString(R.string.feature), plant.info),
-                    genContentItem(context.getString(R.string.function), plant.function)
+                    genContentItem(context.getString(R.string.function), plant.function),
                 )
             }.let { contentItems ->
                 _contentItems.postValue(contentItems)
@@ -42,6 +42,9 @@ class IntroductionViewModel : ViewModel() {
                     genContentItem(context.getString(R.string.english_name), animal.nameEn),
                     genContentItem(context.getString(R.string.latin_name), animal.nameLatin),
                     genContentItem(context.getString(R.string.feature), animal.info),
+                    genContentItem(context.getString(R.string.distribution), animal.distribution),
+                    genContentItem(context.getString(R.string.habitat), animal.habitat),
+                    genContentItem(context.getString(R.string.behavior), animal.behavior)
                 )
             }.let { contentItems ->
                 _contentItems.postValue(contentItems)

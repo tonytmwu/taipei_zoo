@@ -75,6 +75,9 @@ class ZooDataService: IZooDataService {
             },
             action = suspend {
                 apiClient.fetchZooAnimal(rid)?.result?.results?.let { zooAnimals ->
+                    zooAnimals.forEach {
+                        println("=== ${it.habitat}")
+                    }
                     zooAnimalDao.insert(zooAnimals)
                     zooAnimals
                 }

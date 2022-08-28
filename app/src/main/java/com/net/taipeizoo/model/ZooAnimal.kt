@@ -21,6 +21,8 @@ data class ZooAnimal(
     val behavior: String? = null,
     @SerializedName("a_interpretation")
     val interpretation: String? = null,
+    @SerializedName("a_habitat")
+    val habitat: String? = null,
     @SerializedName("a_distribution")
     val distribution: String? = null,
     @SerializedName("a_diet")
