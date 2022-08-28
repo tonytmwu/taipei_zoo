@@ -7,23 +7,23 @@ import kotlinx.coroutines.withContext
 
 @Entity
 data class ZooAnimal(
-    @SerializedName("A_Name_Latin")
+    @SerializedName("a_name_latin")
     val nameLatin: String? = null,
-    @SerializedName("F_Location", alternate = ["A_Location"])
+    @SerializedName("F_Location", alternate = ["a_location"])
     val location: String? = null,
-    @SerializedName("A_Name_En")
+    @SerializedName("a_name_en")
     val nameEn: String? = null,
-    @SerializedName("A_Phylum")
+    @SerializedName("a_phylum")
     val phylum: String? = null,
-    @SerializedName("A_Order")
+    @SerializedName("a_order")
     val order: String? = null,
-    @SerializedName("A_Behavior")
+    @SerializedName("a_behavior")
     val behavior: String? = null,
-    @SerializedName("A_Interpretation")
+    @SerializedName("a_interpretation")
     val interpretation: String? = null,
-    @SerializedName("A_Distribution")
+    @SerializedName("a_distribution")
     val distribution: String? = null,
-    @SerializedName("A_Diet")
+    @SerializedName("a_diet")
     val diet: String? = null
 ) : ZooData() {
 

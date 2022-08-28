@@ -9,15 +9,15 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 open class ZooData: Parcelable {
     @PrimaryKey
-    @SerializedName(value = "_id", alternate = ["A_CID"])
+    @SerializedName(value = "_id", alternate = ["a_cid"])
     var rid: Int = 0
-    @SerializedName(value = "e_name", alternate = ["F_Name_Ch", "A_Name_Ch"])
+    @SerializedName(value = "e_name", alternate = ["F_Name_Ch", "a_name_ch"])
     var title: String? = null
-    @SerializedName(value = "e_category", alternate = ["F_Family", "A_Family"])
+    @SerializedName(value = "e_category", alternate = ["F_Family", "a_family"])
     var category: String? = null
-    @SerializedName("e_info", alternate = ["F_Feature", "A_Feature"])
+    @SerializedName("e_info", alternate = ["F_Feature", "a_feature"])
     var info: String? = null
-    @SerializedName("e_pic_url", alternate = ["F_Pic01_URL", "A_Pic01_URL"])
+    @SerializedName("e_pic_url", alternate = ["F_Pic01_URL", "a_pic01_url"])
     var imgUrl: String? = null
     @Ignore
     var contentItem: ContentItem? = null
