@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="@dimen/small_divide_space"/>
+        app:layout_constraintGuide_begin="@dimen/tiny_divide_space"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glBottom"

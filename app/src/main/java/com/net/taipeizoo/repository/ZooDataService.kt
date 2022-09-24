@@ -46,38 +46,8 @@ class ZooDataService: IZooDataService {
 
     override suspend fun fetchZooAnimal(rid: String): List<ZooAnimal>? {
         return execute(
-            errorAction = suspend {
-                var animals: List<ZooAnimal>? = null
-                try {
-                    CoreApplication.context.resources.assets.open("backup/animal.csv").let { stream ->
-                        val csvParser = CSVParserBuilder().withSeparator(',').build()
-                        val streamReader = InputStreamReader(stream)
-                        val reader =
-                            CSVReaderBuilder(streamReader)
-                                .withCSVParser(csvParser)
-                                .withSkipLines(1)
-                                .build()
-                        val r: List<*> = reader.readAll()
-
-                        val lines = r.map {
-                            (it as? Array<String>)?.let {
-                                it.joinToString("*")
-                            }
-                        }
-                        animals = ZooAnimal.toAnimals(lines)
-                        zooAnimalDao.clean()
-                        zooAnimalDao.insert(animals!!)
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-                animals
-            },
             action = suspend {
                 apiClient.fetchZooAnimal(rid)?.result?.results?.let { zooAnimals ->
-                    zooAnimals.forEach {
-                        println("=== ${it.habitat}")
-                    }
                     zooAnimalDao.insert(zooAnimals)
                     zooAnimals
                 }
