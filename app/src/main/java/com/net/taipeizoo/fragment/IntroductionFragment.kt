@@ -31,7 +31,6 @@ class IntroductionFragment : Fragment() {
     private var _vb: FragmentIntroductionBinding? = null
     private val vb get() = _vb!!
     private val vm : IntroductionViewModel by viewModels()
-    private val navArgs: IntroductionFragmentArgs by navArgs()
     private val gson by lazy { Gson() }
     private var listener: ZooPlantDetailFragmentListener? = null
     private val adapter by lazy { ContentItemAdapter() }
@@ -90,7 +89,7 @@ class IntroductionFragment : Fragment() {
                     }
                 }
                 ZooDetailListFragment.ZooAreaDetailType.PLANT.name -> {
-                    gson.fromJson(data, ZooAnimal::class.java)?.apply {
+                    gson.fromJson(data, ZooPlant::class.java)?.apply {
                         setZooData(title ?: nameEn, imgUrl)
                         vm.toContentItems(requireContext(), this)
                     }
