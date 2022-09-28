@@ -59,7 +59,7 @@ class IntroductionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        processNavArgs()
+        processArgs()
         ViewCompat.setTransitionName(vb.ivImg, uiTransitionName ?: "")
         setupRecyclerView()
         bindLiveData()
@@ -77,18 +77,26 @@ class IntroductionFragment : Fragment() {
         vb.rvZooPlantContent.adapter = adapter
     }
 
-    private fun processNavArgs() {
-        when(navArgs.zooDataType) {
-            ZooDetailListFragment.ZooAreaDetailType.ANIMAL.name -> {
-                gson.fromJson(navArgs.zooPlant, ZooAnimal::class.java)?.apply {
-                    setZooData(title ?: nameEn, imgUrl)
-                    vm.toContentItems(requireContext(), this)
+    private fun processArgs() {
+        arguments?.let {
+            val zooDataType = it.getString(EXTRA_ZOO_DATA_TYPE)
+            val data = it.getString(EXTRA_DATA)
+
+            when(zooDataType) {
+                ZooDetailListFragment.ZooAreaDetailType.ANIMAL.name -> {
+                    gson.fromJson(data, ZooAnimal::class.java)?.apply {
+                        setZooData(title ?: nameEn, imgUrl)
+                        vm.toContentItems(requireContext(), this)
+                    }
                 }
-            }
-            else -> {
-                gson.fromJson(navArgs.zooPlant, ZooPlant::class.java)?.apply {
-                    setZooData(title ?: nameEn, imgUrl)
-                    vm.toContentItems(requireContext(), this)
+                ZooDetailListFragment.ZooAreaDetailType.PLANT.name -> {
+                    gson.fromJson(data, ZooAnimal::class.java)?.apply {
+                        setZooData(title ?: nameEn, imgUrl)
+                        vm.toContentItems(requireContext(), this)
+                    }
+                }
+                else -> {
+                    // do nothing
                 }
             }
         }
@@ -113,7 +121,15 @@ class IntroductionFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance() = IntroductionFragment()
+        val EXTRA_ZOO_DATA_TYPE = "zooDataType"
+        val EXTRA_DATA = "data"
+
+        fun newInstance(zooDataType: String?, data: String?) = IntroductionFragment().apply {
+            arguments = Bundle().apply {
+                putString(EXTRA_ZOO_DATA_TYPE, zooDataType)
+                putString(EXTRA_DATA, data)
+            }
+        }
     }
 
 }

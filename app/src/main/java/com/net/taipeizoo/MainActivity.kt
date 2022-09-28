@@ -1,18 +1,20 @@
 package com.net.taipeizoo
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.google.gson.Gson
+import com.net.taipeizoo.activity.contract.IntroductionActivityResultContract
 import com.net.taipeizoo.databinding.ActivityMainBinding
 import com.net.taipeizoo.fragment.*
 import com.net.taipeizoo.model.ZooData
 import com.net.taipeizoo.viewmodel.MainActivityViewModel
+
 
 class MainActivity : AppCompatActivity(),
     ZooAreaFragment.ZooAreaFragmentListener,
@@ -87,12 +89,18 @@ class MainActivity : AppCompatActivity(),
         popBackStack()
     }
 
+    private val launcher =
+        registerForActivityResult(IntroductionActivityResultContract()) {
+            // do nothing
+    }
+
     override fun showIntroduction(zooAreaDetailType: ZooDetailListFragment.ZooAreaDetailType?, data: ZooData, sharedElementView: View) {
         val json = gson.toJson(data)
-        val direction = ZooAreaDetailFragmentDirections.navToIntroductionFragment(zooAreaDetailType?.name ?: "", json)
-        val extra = FragmentNavigatorExtras(
-            sharedElementView to (data.imgUrl ?: "")
-        )
-        navController.navigate(direction, extra)
+        launcher.launch(IntroductionActivityResultContract.Input(zooDataType = zooAreaDetailType?.name ?: "", data = json))
+//        val direction = ZooAreaDetailFragmentDirections.navToIntroductionFragment(zooAreaDetailType?.name ?: "", json)
+//        val extra = FragmentNavigatorExtras(
+//            sharedElementView to (data.imgUrl ?: "")
+//        )
+//        navController.navigate(direction, extra)
     }
 }
